@@ -27,7 +27,6 @@
         while (rs.next()) {                
                 if (usu.equals(rs.getString(2)) && pass.equals(rs.getString(3))) {
                     if ("Activo".equals(rs.getString(5))) {
-                        
                         session.setAttribute("codDocente", rs.getString(2));
                         session.setAttribute("nivelUsuario", rs.getString(4));
                         session.setAttribute("estadoUsuario", rs.getString(5));  

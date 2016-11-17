@@ -17,15 +17,34 @@
     String nivelUsuario = String.valueOf(session.getAttribute("nivelUsuario"));    
 %>
 <head>
-    <title>Reportes Faltantes</title>
+    <title>Informe Prueba Entrada</title>
 </head>
 <body class="background-gray">
         <div class="container body-padding">
             <div class="row">
-                <form class="form-reporte shadow">
+                <form class="form-reporte shadow ">
                     <fieldset>
                         <div class="form-group">
-                            <h2>Informes Faltantes</h2>
+                            <h2>Informe Prueba Entrada</h2>
+                            <h4>Semestre</h4>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-lg-2 ">Código :</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control input-sm" id="">
+                                </div>
+                                
+                                <label class="col-lg-2 ">Matriculados :</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control input-sm" id="">
+                                </div>
+                                
+                                <label class="col-lg-2 ">Abandono :</label>
+                                <div class="col-lg-2">
+                                  <input type="text" class="form-control input-sm" id="">
+                                </div>                                
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="select" class="control-label">Tipo de reporte</label>
@@ -71,7 +90,7 @@
                                                         <td><%=objenti.getNombreDocente()%></td>
                                                         <td>
 <!--                                                            <input class="btn btn-info btn-xs" type="submit" name="Detalle" value="Hacer informe">-->
-                                                            <a href="pruebaEntrada.jsp?id_usu=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs">Hacer informe</a>                                      
+                                                            <a href="usuarioDetalle.jsp?id_usu=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs">Hacer informe</a>                                      
                                                         </td>
                                                     </tr>
                                                     <%
@@ -89,4 +108,3 @@
         </div>        
     </body>
 </html>
-
