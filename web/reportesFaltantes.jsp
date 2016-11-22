@@ -71,7 +71,7 @@
                                                         <td><%=objenti.getNombreDocente()%></td>
                                                         <td>
 <!--                                                            <input class="btn btn-info btn-xs" type="submit" name="Detalle" value="Hacer informe">-->
-                                                            <a href="pruebaEntrada.jsp?id_usu=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs">Hacer informe</a>                                      
+                                                            <a href="pruebaEntrada.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs">Hacer informe</a>                                      
                                                         </td>
                                                     </tr>
                                                     <%
