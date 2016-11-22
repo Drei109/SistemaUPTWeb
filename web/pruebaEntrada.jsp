@@ -3,6 +3,7 @@
     Created on : 14-nov-2016, 20:52:58
     Author     : Drei
 --%>
+<%@page import="Negocio.ClsNegocioUsuario"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Negocio.ClsNegocioDetallePruebaEntrada"%>
 <%@page import="Entidad.ClsEntidadPruebaEntrada"%>
@@ -24,6 +25,9 @@
 
 
 <%   
+    
+    // CARGAR DATOS DE FORMULARIO
+    
     String codDocente = String.valueOf(session.getAttribute("codDocente"));
     String nivelUsuario = String.valueOf(session.getAttribute("nivelUsuario"));   
     String busqueda = "Prueba Entrada";
@@ -41,7 +45,7 @@
 
         objenti = (ClsEntidadPruebaCursosFaltantes) iterator.next();
 
-        if (idCurso == String.valueOf(objenti.getIdCurso())) {
+        if (idCurso.equals(String.valueOf(objenti.getIdCurso()))) {
             campo[0] = objenti.getIdCurso();
             campo[1] = objenti.getNombreCurso();
             campo[2] = String.valueOf(objenti.getHorasTeoricas());
@@ -58,28 +62,49 @@
 
     }
     
+    // FIN DE CARGAR DATOS DE FORMULARIO
     
     
+    /*************************************************************************/
     
     
+    // OBTENIENDO EL PLAN DE ESTUDIOS
     
-    
-    
-    
+    String idPlanEstudios = "";
+    //Instanciar la clase NegocioUsuario
+    ClsNegocioUsuario docente = new ClsNegocioUsuario();
 
+    //Obtiene el resultado de la consulta hecha a la BD
+    ResultSet rsDocente = docente.obtenerDatosPruebaEntrada(campo[7], campo[0]);
+
+    //itera los valores hechas en la consulta
+    while (rsDocente.next()) {
+        //llenar los valores con los valores respectivos
+//        lblSemestre.setText("Semestre " + rsDocente.getString(7));
+        idPlanEstudios = rsDocente.getString(8);
+    }
+    docente.conexion.close();
+    
+    // FIN DE OBTENIENDO EL PLAN DE ESTUDIOS
+      
+    /*************************************************************************/
+    
+    // GUARDAR DATOS
+    
     ArrayList<String> datosTabla = new ArrayList<>();
     ArrayList<String> datosMedidasCorrectivas = new ArrayList<>();
     String mensaje = "";
     
-//    Map<String, String[]> parameters = request.getParameterMap();
-//    
-//    for(String parameter : parameters.keySet()) {
-//        String[] values = parameters.get(parameter);
-////        datosTabla.add(values);
-//    }
+    ClsEntidadDetallePruebaEntrada entidadDetalle = new ClsEntidadDetallePruebaEntrada();
+    ClsNegocioPruebaEntrada negocioPrueba = new ClsNegocioPruebaEntrada();
+    ClsEntidadPruebaEntrada entidadPrueba = new ClsEntidadPruebaEntrada();
     
     if (request.getParameter("Guardar")!=null) {
         mensaje = "Hello World <br>";
+        
+    /*************************************************************************/
+    
+    // OBTENIENDO DATOS DEL FORMULARIO
         Enumeration parameterList = request.getParameterNames();
         while( parameterList.hasMoreElements() )
         {
@@ -87,12 +112,50 @@
           if(sName.toLowerCase().startsWith("detalle")){
             datosTabla.add(request.getParameter(sName));
           }
-          if(sName.toLowerCase().startsWith("medCorrectiva")){
+          if(sName.toLowerCase().startsWith("medcorrectiva")){
             datosMedidasCorrectivas.add(request.getParameter(sName));
           }
         }        
+        
+    /*************************************************************************/
+        
+    //FUNCION GUARDAR
+    //GUARDAR PRUEBA DE ENTRADA
+        String estado = "Guardado";
+        String IDPruebaEntrada = "";
+        
+        entidadPrueba.setIdCargaAcademica(Integer.parseInt(idPlanEstudios));
+        entidadPrueba.setEstado(estado);
+        entidadPrueba.setEvaluados(Integer.parseInt(request.getParameter("evaluados")));
+
+        negocioPrueba.AgregarPruebaEntrada(entidadPrueba);
+        negocioPrueba.cst.close();
+        negocioPrueba.conexion.close();
+
+        //GUARDAR DETALLE DE PRUEBA DE ENTRADA
+        ClsNegocioDetallePruebaEntrada negocioDetalle = new ClsNegocioDetallePruebaEntrada();
+        ResultSet rs = negocioDetalle.ObtenerIdPruebaEntrada(idPlanEstudios);
+        while (rs.next()) {
+            IDPruebaEntrada = rs.getString(1);
+        }
+
+        int l = 0;
+        for (int i = 0; i < datosTabla.size(); i+=4) {
+            entidadDetalle.setIdPruebaEntrada(Integer.parseInt(IDPruebaEntrada));
+            entidadDetalle.setHabilidad(datosTabla.get(i));
+            entidadDetalle.setCantNoAceptalbe(Integer.parseInt(datosTabla.get(i+1)));
+            entidadDetalle.setCantSuficiente(Integer.parseInt(datosTabla.get(i+2)));
+            entidadDetalle.setCantBueno(Integer.parseInt(datosTabla.get(i+3)));            
+            entidadDetalle.setMedidasCorrectivas(datosMedidasCorrectivas.get(l));
+            l++;
+            negocioDetalle.AgregarDetallePruebaEntrada(entidadDetalle);
+        }
+        
+        negocioDetalle.conexion.close();
     }
     
+    
+    /*************************************************************************/
     
     for (int j = 0; j < datosTabla.size(); j++) {
         mensaje += datosTabla.get(j) + " - ";
@@ -100,56 +163,11 @@
             mensaje += "<br>";
         }
     }
-%>
-
-<%!
-    void guardarInforme(String estado, int datosMedidasCorrectivas, String idPlanEstudios){
-//        ClsEntidadDetallePruebaEntrada entidadDetalle = new ClsEntidadDetallePruebaEntrada();
-//        
-//        ClsNegocioPruebaEntrada negocioPrueba = new ClsNegocioPruebaEntrada();
-//        ClsEntidadPruebaEntrada entidadPrueba = new ClsEntidadPruebaEntrada();
-//                
-//        int filas = datosMedidasCorrectivas;
-//        
-//        
-//        
-//        try {
-//            
-//            //GUARDAR PRUEBA DE ENTRADA
-//            entidadPrueba.setIdCargaAcademica(Integer.parseInt(idPlanEstudios));
-//            entidadPrueba.setEstado(estado);
-//            entidadPrueba.setEvaluados(Integer.parseInt(txtEvaluados.getText()));
-//
-//            negocioPrueba.AgregarPruebaEntrada(entidadPrueba);
-//            negocioPrueba.cst.close();
-//            negocioPrueba.conexion.close();
-//            
-//            //GUARDAR DETALLE DE PRUEBA DE ENTRADA
-//            ClsNegocioDetallePruebaEntrada negocioDetalle = new ClsNegocioDetallePruebaEntrada();
-//            ResultSet rs = negocioDetalle.ObtenerIdPruebaEntrada(idPlanEstudios);
-//            while (rs.next()) {
-//                IDPruebaEntrada = rs.getString(1);
-//            }
-//            
-//            //3 5 7
-//            for (int i = 0; i < filas; i++) {
-//                entidadDetalle.setIdPruebaEntrada(Integer.parseInt(IDPruebaEntrada));
-//                entidadDetalle.setHabilidad((String) tabla.getValueAt(i, 1));
-//                entidadDetalle.setCantNoAceptalbe(Integer.parseInt((String) tabla.getValueAt(i, 2)));
-//                entidadDetalle.setCantSuficiente(Integer.parseInt((String) tabla.getValueAt(i, 4)));
-//                entidadDetalle.setCantBueno(Integer.parseInt((String) tabla.getValueAt(i, 6)));
-//                entidadDetalle.setMedidasCorrectivas(medidasCorrectivas.get(i));
-//                negocioDetalle.AgregarDetallePruebaEntrada(entidadDetalle);
-//            }
-//            
-//        negocioDetalle.conexion.close();
-//        
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
+    for (int j = 0; j < datosMedidasCorrectivas.size(); j++) {
+        mensaje += datosMedidasCorrectivas.get(j) + " - ";
+        mensaje += "<br>";
     }
 %>
-
 
 <head>
     <title>Informe Prueba Entrada</title>
@@ -272,7 +290,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <p><%=mensaje%></p>
+                            <p><%//mensaje%></p>
                         </div>
                         
                     </fieldset>

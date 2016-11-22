@@ -42,13 +42,13 @@
                         </div>
                         <div class="form-group">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" border="1">
+                                <table class="table table-striped table-prueba-entrada" border="1">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>Nombre del curso</th>
                                             <th>Nombre del docente</th>
-                                            <th></th>
+                                            <th>Controles</th>
                                         </tr>
                                     </thead>
                                     <tbody>
