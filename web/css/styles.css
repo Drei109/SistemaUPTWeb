@@ -178,3 +178,10 @@ html, body {
     width: 100%;
     border-radius: 0;
 }
+
+.full-height{
+    height: 100%;
+    padding:1%;
+    margin-bottom: 5%;
+    /*background-color: white;*/
+}

@@ -27,38 +27,43 @@
                             <h2>Imprimir Reportes</h2>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-default" name="pdf" value="Ver en PDF">
+                            <a href="#documento"><input type="submit" class="btn btn-default" name="pdf" value="Ver en PDF"></a>
                             <input type="submit" class="btn btn-default" name="html" value="Ver en HTML">
                             <input type="submit" class="btn btn-default" name="xls" value="Descargar en Excel">
                         </div>
                     </fieldset>
                 </form>
             </div>
-            
-            <%
+        </div>
+        <%
                 if(request.getParameter("pdf") != null){
                     %>
-                    <div class="container">
-                        <embed class="reporte" src="docenteReporte.jsp?doctype=pdf&id_PruebaEntrada=<%=id_PruebaEntrada%>" width="100%" height="100%" type='application/pdf'>
+                    <div class="container full-height" id="documento">
+                        <div class="row form-reporte shadow full-height">
+                            <embed class="reporte" src="RptInformePruebaEntrada.jsp?doctype=pdf&id_PruebaEntrada=<%=id_PruebaEntrada%>" width="100%" height="100%" type='application/pdf'>
+                        </div>
                     </div>
                     <%
                 }
                 else if(request.getParameter("html") != null){
                     %>
-                    <object width="100%" height="100%" class="container" type="text/html" data="docenteReporte.jsp?doctype=html&id_PruebaEntrada=<%=id_PruebaEntrada%>">
-                    <p>backup content</p>
-                    </object>
+                    <div class="container full-height" id="documento">
+                        <div class="row form-reporte shadow full-height">
+                            <object width="100%" height="100%" class="container" type="text/html" data="RptInformePruebaEntrada.jsp?doctype=html&id_PruebaEntrada=<%=id_PruebaEntrada%>">
+                            <p>backup content</p>
+                            </object>
+                        </div>
+                    </div>
                     <%
                 }
                 else if(request.getParameter("xls") != null){
                     %>
                     <div class="container">
-                        <embed class="reporte" src="docenteReporte.jsp?doctype=xls&id_PruebaEntrada=<%=id_PruebaEntrada%>" width="100%" height="100%" type='text/html'>
+                        <embed class="reporte" src="RptInformePruebaEntrada.jsp?doctype=xls&id_PruebaEntrada=<%=id_PruebaEntrada%>" width="100%" height="100%" type='text/html'>
                     </div>
                     <%
                 }
             %>
-        </div>        
     </body>
 </html>
 

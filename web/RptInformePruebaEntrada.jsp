@@ -25,15 +25,18 @@
 <%
 //    Connection cnx = null;
     String doctype = request.getParameter("doctype");
-    
+    String id_PruebaEntrada = request.getParameter("id_PruebaEntrada");
     Connection cnx = null;
     Map p = new HashMap();
+    p.put("ID", id_PruebaEntrada);
+//    String ruta = session.getServletContext().getRealPath("/");
+    
     
     if (doctype.equals("pdf")) {
         try {
             cnx = new ClsConexion().getConnection();
 
-            File f = new File(session.getServletContext().getRealPath("/admin/reportes/RptTotalDocente.jrxml"));
+            File f = new File(session.getServletContext().getRealPath("/rpt/RptInformePruebaEntrada.jrxml"));
 
             InputStream input = new FileInputStream(f);
             response.setContentType("application/pdf");
@@ -54,6 +57,7 @@
                 cnx.close();
             }
         }
+        
     }
     else if(doctype.equals("html")){
         response.setContentType("text/html");
@@ -63,7 +67,7 @@
         try{
             cnx = new ClsConexion().getConnection();
 
-            File f = new File(session.getServletContext().getRealPath("/admin/reportes/RptTotalDocente.jrxml"));
+            File f = new File(session.getServletContext().getRealPath("/rpt/RptInformePruebaEntrada.jrxml"));
 
             InputStream input = new FileInputStream(f);
             
@@ -96,7 +100,7 @@
         try{
             cnx = new ClsConexion().getConnection();
 
-            File f = new File(session.getServletContext().getRealPath("/admin/reportes/RptTotalDocente.jrxml"));
+            File f = new File(session.getServletContext().getRealPath("/rpt/RptInformePruebaEntrada.jrxml"));
 
             InputStream input = new FileInputStream(f);
             
