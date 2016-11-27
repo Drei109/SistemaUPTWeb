@@ -45,7 +45,7 @@
                                 Consultas<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Consulta Informe de prueba entrada</a></li>
+                                <li><a href="consultaPruebaEntrada.jsp">Consulta Informe de prueba entrada</a></li>
                                 <li><a href="#">Consulta Informe final del curso </a></li>
                                 <li><a href="#">Consulta Informe final del curso - doc </a></li>
                                 <li><a href="#">Consulta Informe de portafolio</a></li>

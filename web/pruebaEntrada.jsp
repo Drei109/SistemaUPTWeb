@@ -19,14 +19,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%!
-    
-%>
-
 
 <%   
     
-    // CARGAR DATOS DE FORMULARIO
+    // CARGAR DATOS CABECERA
     
     String codDocente = String.valueOf(session.getAttribute("codDocente"));
     String nivelUsuario = String.valueOf(session.getAttribute("nivelUsuario"));   
@@ -39,31 +35,93 @@
     Iterator iterator = dato.iterator();
     String campo[] = new String[11];
     
+    if(idCurso!= null){
+        while (iterator.hasNext()) {
+            ClsEntidadPruebaCursosFaltantes objenti = new ClsEntidadPruebaCursosFaltantes();
 
-    while (iterator.hasNext()) {
-        ClsEntidadPruebaCursosFaltantes objenti = new ClsEntidadPruebaCursosFaltantes();
+            objenti = (ClsEntidadPruebaCursosFaltantes) iterator.next();
 
-        objenti = (ClsEntidadPruebaCursosFaltantes) iterator.next();
-
-        if (idCurso.equals(String.valueOf(objenti.getIdCurso()))) {
-            campo[0] = objenti.getIdCurso();
-            campo[1] = objenti.getNombreCurso();
-            campo[2] = String.valueOf(objenti.getHorasTeoricas());
-            campo[3] = String.valueOf(objenti.getHoraPracticas());
-            campo[4] = String.valueOf(objenti.getAlumnosMatriculados());
-            campo[5] = String.valueOf(objenti.getAlumnosRetirados());
-            campo[6] = String.valueOf(objenti.getAlumnosAbandono());
-            campo[7] = String.valueOf(objenti.getCodigoDocente());
-            campo[8] = String.valueOf(objenti.getNombreDocente());
-            campo[9] = objenti.getEmailDocente();
-            campo[10]= objenti.getCeluDocente();
-            break;
+            if (idCurso.equals(String.valueOf(objenti.getIdCurso()))) {
+                campo[0] = objenti.getIdCurso();
+                campo[1] = objenti.getNombreCurso();
+                campo[2] = String.valueOf(objenti.getHorasTeoricas());
+                campo[3] = String.valueOf(objenti.getHoraPracticas());
+                campo[4] = String.valueOf(objenti.getAlumnosMatriculados());
+                campo[5] = String.valueOf(objenti.getAlumnosRetirados());
+                campo[6] = String.valueOf(objenti.getAlumnosAbandono());
+                campo[7] = String.valueOf(objenti.getCodigoDocente());
+                campo[8] = String.valueOf(objenti.getNombreDocente());
+                campo[9] = objenti.getEmailDocente();
+                campo[10]= objenti.getCeluDocente();
+                break;
+            }
         }
-
     }
     
-    // FIN DE CARGAR DATOS DE FORMULARIO
     
+    // FIN DE CARGAR DATOS CABECERA
+    
+    /*************************************************************************/
+    
+    // CARGAR DATOS DESDE CONSULTA
+    
+    String id_PruebaEntrada = request.getParameter("id_PruebaEntrada");
+    boolean guardarNuevo = true;
+    
+    String campoConsulta[] = new String[11];    
+    
+    ArrayList<String> campoDetalle = new ArrayList<>();
+    ArrayList<String> medidasCorrectivas = new ArrayList<>();
+    
+    if (id_PruebaEntrada != null) {
+        guardarNuevo = false;
+        // CABECERA 
+        ClsNegocioPruebaEntrada negNegocioPruebaEntrada = new ClsNegocioPruebaEntrada();
+        ArrayList<String> pruebaEntrada = negNegocioPruebaEntrada.seleccionarPruebaEntrada(id_PruebaEntrada);
+        campoConsulta = pruebaEntrada.toArray(new String[pruebaEntrada.size()]);
+        
+        campo[0] = campoConsulta[0];
+        campo[1] = campoConsulta[1];
+        campo[2] = campoConsulta[2];
+        campo[3] = campoConsulta[3];
+        campo[4] = campoConsulta[4];
+        campo[5] = campoConsulta[5];
+        campo[6] = campoConsulta[6];
+        campo[7] = campoConsulta[7];
+        campo[8] = campoConsulta[8];
+        campo[9] = campoConsulta[9];
+        campo[10]= campoConsulta[10];
+                
+        negNegocioPruebaEntrada.conexion.close();
+        
+        // DETALLE
+        
+        ClsNegocioDetallePruebaEntrada detallePruebaEntrada = new ClsNegocioDetallePruebaEntrada();
+        ArrayList<ClsEntidadDetallePruebaEntrada> detalle = detallePruebaEntrada.seleccionarDetallePruebaEntrada(id_PruebaEntrada);
+        Iterator iteratorDetalle = detalle.iterator();
+        
+        
+        while (iteratorDetalle.hasNext()) {            
+            ClsEntidadDetallePruebaEntrada objDetalle = new ClsEntidadDetallePruebaEntrada();
+            objDetalle = (ClsEntidadDetallePruebaEntrada) iteratorDetalle.next();
+            
+//            campo[1] = String.valueOf(objDetalle.getIdPruebaEntrada());
+            campoDetalle.add(String.valueOf(objDetalle.getIdDetallePruebaEntrada()));
+            campoDetalle.add(objDetalle.getHabilidad());
+            campoDetalle.add(String.valueOf(objDetalle.getCantNoAceptalbe()));
+            campoDetalle.add(String.valueOf(objDetalle.getCantSuficiente()));
+            campoDetalle.add(String.valueOf(objDetalle.getCantBueno()));
+            
+            medidasCorrectivas.add(objDetalle.getMedidasCorrectivas());            
+        }
+        
+        detallePruebaEntrada.conexion.close();
+        
+        
+        
+    }
+    
+    // FIN DECARGAR DATOS DESDE CONSULTA
     
     /*************************************************************************/
     
@@ -71,16 +129,10 @@
     // OBTENIENDO EL PLAN DE ESTUDIOS
     
     String idPlanEstudios = "";
-    //Instanciar la clase NegocioUsuario
     ClsNegocioUsuario docente = new ClsNegocioUsuario();
-
-    //Obtiene el resultado de la consulta hecha a la BD
     ResultSet rsDocente = docente.obtenerDatosPruebaEntrada(campo[7], campo[0]);
 
-    //itera los valores hechas en la consulta
     while (rsDocente.next()) {
-        //llenar los valores con los valores respectivos
-//        lblSemestre.setText("Semestre " + rsDocente.getString(7));
         idPlanEstudios = rsDocente.getString(8);
     }
     docente.conexion.close();
@@ -89,19 +141,27 @@
       
     /*************************************************************************/
     
-    // GUARDAR DATOS
+    // GUARDAR O ACTUALIZAR DATOS
     
     ArrayList<String> datosTabla = new ArrayList<>();
     ArrayList<String> datosMedidasCorrectivas = new ArrayList<>();
     String mensaje = "";
+    String estado = "";
     
     ClsEntidadDetallePruebaEntrada entidadDetalle = new ClsEntidadDetallePruebaEntrada();
     ClsNegocioPruebaEntrada negocioPrueba = new ClsNegocioPruebaEntrada();
     ClsEntidadPruebaEntrada entidadPrueba = new ClsEntidadPruebaEntrada();
     
-    if (request.getParameter("Guardar")!=null) {
-        mensaje = "Hello World <br>";
+    if (request.getParameter("Guardar")!=null || request.getParameter("Enviar")!=null) {
         
+        
+        if(request.getParameter("Guardar")!=null){
+            estado = "Guardado";            
+        }
+        
+        if(request.getParameter("Enviar")!=null){
+            estado = "Enviado";            
+        }
     /*************************************************************************/
     
     // OBTENIENDO DATOS DEL FORMULARIO
@@ -118,55 +178,110 @@
         }        
         
     /*************************************************************************/
-        
-    //FUNCION GUARDAR
-    //GUARDAR PRUEBA DE ENTRADA
-        String estado = "Guardado";
-        String IDPruebaEntrada = "";
-        
-        entidadPrueba.setIdCargaAcademica(Integer.parseInt(idPlanEstudios));
-        entidadPrueba.setEstado(estado);
-        entidadPrueba.setEvaluados(Integer.parseInt(request.getParameter("evaluados")));
+        if(guardarNuevo){
+            //FUNCION GUARDAR
+            //GUARDAR PRUEBA DE ENTRADA            
+            String IDPruebaEntrada = "";
 
-        negocioPrueba.AgregarPruebaEntrada(entidadPrueba);
-        negocioPrueba.cst.close();
-        negocioPrueba.conexion.close();
+            entidadPrueba.setIdCargaAcademica(Integer.parseInt(idPlanEstudios));
+            entidadPrueba.setEstado(estado);
+            entidadPrueba.setEvaluados(Integer.parseInt(request.getParameter("evaluados")));
 
-        //GUARDAR DETALLE DE PRUEBA DE ENTRADA
-        ClsNegocioDetallePruebaEntrada negocioDetalle = new ClsNegocioDetallePruebaEntrada();
-        ResultSet rs = negocioDetalle.ObtenerIdPruebaEntrada(idPlanEstudios);
-        while (rs.next()) {
-            IDPruebaEntrada = rs.getString(1);
-        }
+            negocioPrueba.AgregarPruebaEntrada(entidadPrueba);
+            negocioPrueba.cst.close();
+            negocioPrueba.conexion.close();
 
-        int l = 0;
-        for (int i = 0; i < datosTabla.size(); i+=4) {
-            entidadDetalle.setIdPruebaEntrada(Integer.parseInt(IDPruebaEntrada));
-            entidadDetalle.setHabilidad(datosTabla.get(i));
-            entidadDetalle.setCantNoAceptalbe(Integer.parseInt(datosTabla.get(i+1)));
-            entidadDetalle.setCantSuficiente(Integer.parseInt(datosTabla.get(i+2)));
-            entidadDetalle.setCantBueno(Integer.parseInt(datosTabla.get(i+3)));            
-            entidadDetalle.setMedidasCorrectivas(datosMedidasCorrectivas.get(l));
-            l++;
-            negocioDetalle.AgregarDetallePruebaEntrada(entidadDetalle);
-        }
-        
-        negocioDetalle.conexion.close();
+            //GUARDAR DETALLE DE PRUEBA DE ENTRADA
+            ClsNegocioDetallePruebaEntrada negocioDetalle = new ClsNegocioDetallePruebaEntrada();
+            ResultSet rs = negocioDetalle.ObtenerIdPruebaEntrada(idPlanEstudios);
+            while (rs.next()) {
+                IDPruebaEntrada = rs.getString(1);
+            }
+
+            int l = 0;
+            for (int i = 0; i < datosTabla.size(); i+=4) {
+                entidadDetalle.setIdPruebaEntrada(Integer.parseInt(IDPruebaEntrada));
+                entidadDetalle.setHabilidad(datosTabla.get(i));
+                entidadDetalle.setCantNoAceptalbe(Integer.parseInt(datosTabla.get(i+1)));
+                entidadDetalle.setCantSuficiente(Integer.parseInt(datosTabla.get(i+2)));
+                entidadDetalle.setCantBueno(Integer.parseInt(datosTabla.get(i+3)));            
+                entidadDetalle.setMedidasCorrectivas(datosMedidasCorrectivas.get(l));
+                l++;
+                negocioDetalle.AgregarDetallePruebaEntrada(entidadDetalle);
+            }
+
+            negocioDetalle.conexion.close();
+            guardarNuevo = true;
+            
+            response.sendRedirect("consultaPruebaEntrada.jsp");
+            
+        }else{
+            
+            //MODIFICAR PRUEBA DE ENTRADA
+
+            entidadPrueba.setIdCargaAcademica(Integer.parseInt(idPlanEstudios));
+
+            entidadPrueba.setEstado(estado);
+            entidadPrueba.setEvaluados(Integer.parseInt(request.getParameter("evaluados")));
+
+            negocioPrueba.ModificarPruebaEntrada(id_PruebaEntrada,entidadPrueba);
+            negocioPrueba.cst.close();
+            negocioPrueba.conexion.close();
+
+            //MODIFICAR DETALLE DE PRUEBA DE ENTRADA
+            ClsNegocioDetallePruebaEntrada negocioDetalle = new ClsNegocioDetallePruebaEntrada();
+            negocioDetalle.EliminarDetallPruebaEntradaTodo(id_PruebaEntrada);
+
+            int l = 0;
+            for (int i = 0; i < datosTabla.size(); i+=4) {
+                entidadDetalle.setIdPruebaEntrada(Integer.parseInt(id_PruebaEntrada));
+                entidadDetalle.setHabilidad(datosTabla.get(i));
+                entidadDetalle.setCantNoAceptalbe(Integer.parseInt(datosTabla.get(i+1)));
+                entidadDetalle.setCantSuficiente(Integer.parseInt(datosTabla.get(i+2)));
+                entidadDetalle.setCantBueno(Integer.parseInt(datosTabla.get(i+3)));            
+                entidadDetalle.setMedidasCorrectivas(datosMedidasCorrectivas.get(l));
+                l++;
+                negocioDetalle.AgregarDetallePruebaEntrada(entidadDetalle);
+            }
+            negocioDetalle.conexion.close();
+            response.sendRedirect("consultaPruebaEntrada.jsp");
+        }    
     }
     
     
     /*************************************************************************/
-    
-    for (int j = 0; j < datosTabla.size(); j++) {
-        mensaje += datosTabla.get(j) + " - ";
-        if((j+1) % 4 == 0){
-            mensaje += "<br>";
+    // FUNCIONES DE ADMINSITRADOR
+    // CAMBIAR ESTADO
+    if(request.getParameter("Aceptar")!=null || request.getParameter("Rechazar")!=null){
+        
+        String IDPruebaEntrada = "";
+        
+        if(request.getParameter("Aceptar")!=null){
+            estado = "Aprobado";
         }
+        else if(request.getParameter("Rechazar")!=null){
+            estado = "Rechazado";
+        }
+        
+        ClsNegocioDetallePruebaEntrada negocioDetalle = new ClsNegocioDetallePruebaEntrada();
+        ResultSet rs;
+        
+        rs = negocioDetalle.ObtenerIdPruebaEntrada(idPlanEstudios);
+        while (rs.next()) {
+            IDPruebaEntrada = rs.getString(1);
+        }
+        negocioDetalle.cst.close();
+        negocioDetalle.conexion.close();
+
+        ClsNegocioPruebaEntrada prueba = new ClsNegocioPruebaEntrada();
+        prueba.ModificarEstadoPruebaEntrada(IDPruebaEntrada, estado);
+
+        prueba.cst.close();
+        prueba.conexion.close();        
     }
-    for (int j = 0; j < datosMedidasCorrectivas.size(); j++) {
-        mensaje += datosMedidasCorrectivas.get(j) + " - ";
-        mensaje += "<br>";
-    }
+    
+    
+    int CantDetalle = 0;
 %>
 
 <head>
@@ -215,7 +330,7 @@
                                 
                                 <label class="col-lg-2 ">Evaluados :</label>
                                 <div class="col-lg-1">
-                                  <input type="number" min="0" class="form-control input-sm" id="" name='evaluados'>
+                                  <input type="number" min="0" class="form-control input-sm" id="" name='evaluados' value="<%=campoConsulta[10]%>">
                                 </div>                                
                             </div>
                             
@@ -251,42 +366,75 @@
                                     <th class="col-md-1">Total</th>
                                 </thead>
                                 <tbody>
-                                  <tr id='addr0'>
-                                    <td><input value="1" type="text" class="form-control"/></td>
-                                    <td><input name="detalleCon0" type="text" class="form-control"/></td>
-                                    <td><input name="detalleNa0" type="text" class="form-control"/></td>
-                                    <td><input name='naPer0' type="text" class="form-control"/></td>
-                                    <td><input name="detalleSu0" type="text" class="form-control"/></td>
-                                    <td><input name='suPer0' type="text" class="form-control"/></td>
-                                    <td><input name="detalleBu0" type="text" class="form-control"/></td>
-                                    <td><input name='buPer0' type="text" class="form-control"/></td>
-                                    <td><input name='total0' type="text" class="form-control"/></td>
-                                  </tr>
-                                  <tr id='addr1'></tr>
+                                    <%
+                                        for (int i = 0; i < campoDetalle.size(); i+=5) {
+                                            %>
+                                            <tr id='addr<%=CantDetalle%>'>
+                                                <td><input value="<%=CantDetalle+1%>" type="text" class="form-control"/></td>
+                                                <td><input value="<%=campoDetalle.get(i+1)%>" name="detalleCon<%=CantDetalle%>" type="text" class="form-control"/></td>
+                                                <td><input value="<%=campoDetalle.get(i+2)%>" name="detalleNa<%=CantDetalle%>" type="text" class="form-control"/></td>
+                                                <td><input value="<%=Integer.parseInt(campoDetalle.get(i+2))*100/Integer.parseInt(campoConsulta[10])%>" name='naPer<%=CantDetalle%>' type="text" class="form-control"/></td>
+                                                <td><input value="<%=campoDetalle.get(i+3)%>" name="detalleSu<%=CantDetalle%>" type="text" class="form-control"/></td>
+                                                <td><input value="<%=Integer.parseInt(campoDetalle.get(i+3))*100/Integer.parseInt(campoConsulta[10])%>" name='suPer<%=CantDetalle%>' type="text" class="form-control"/></td>
+                                                <td><input value="<%=campoDetalle.get(i+4)%>" name="detalleBu<%=CantDetalle%>" type="text" class="form-control"/></td>
+                                                <td><input value="<%=Integer.parseInt(campoDetalle.get(i+4))*100/Integer.parseInt(campoConsulta[10])%>" name='buPer<%=CantDetalle%>' type="text" class="form-control"/></td>
+                                                <td><input value="100" name='total<%=CantDetalle%>' type="text" class="form-control"/></td>
+                                            </tr>
+                                            <%
+                                            CantDetalle++;
+                                        }
+                                    %>
+                                    
+                                    <tr id='addr<%=CantDetalle%>'></tr>
                                 </tbody>
                             </table>
                         </div>
                         
                         <div class="form-group">
                             <label><a id="calc_percentages" class="btn btn-primary">Calcular Porcentajes</a></label>
-                            <label><a id="add_row" class="btn btn-warning">Agregar Fila</a></label>
-                            <label><a id='delete_row' class="btn btn-warning ">Eliminar Fila</a></label>
+                            <label><a id="add_row" class="btn btn-success">Agregar Fila</a></label>
+                            <label><a id='delete_row' class="btn btn-danger ">Eliminar Fila</a></label>
                             <div><p id='permessage' ></p></div>
                         </div>    
                         
                         <div class="form-group" id="medidas_logic">
                             <label>Describa las medidas correctivas que tomará en los casos de grado no aceptable:</label>
-                            <div id="mc0">
-                                <p>Para Nº 1<p>
-                                <textarea name="medCorrectiva0" class="form-control"></textarea>
-                            </div>    
-                            <div id="mc1"></div>
+                            <%
+                                int detalleIterador = 0;
+                                for (int i = 0; i < medidasCorrectivas.size(); i++) {
+                                    %>
+                                    <div id="mc<%=detalleIterador%>">
+                                        <p>Para Nº <%=detalleIterador+1%><p>
+                                        <textarea name="medCorrectiva<%=detalleIterador%>" class="form-control"><%=medidasCorrectivas.get(i)%></textarea>
+                                    </div>    
+                                    <%
+                                    detalleIterador++;
+                                }
+                            %>
+                            <div id="mc<%=detalleIterador%>"></div>
                         </div>   
                         
                         
-                        
+                            
                         <div class="form-group">
-                            <input class="btn btn-primary" type="submit" name="Guardar" value="Guardar">
+                             <%if(nivelUsuario.equals("Usuario")){
+                                %>
+                                <input class="btn btn-primary" type="submit" name="Guardar" value="Guardar">
+                                <input class="btn btn-primary" type="submit" name="Enviar" value="Enviar">
+                                <%   
+                            }
+                            %>
+                            <%if(nivelUsuario.equals("Administrador") || nivelUsuario.equals("Supervisor")){
+                                %>
+                                <input class="btn btn-success" type="submit" name="Aceptar" value="Aceptar">
+                                <input class="btn btn-danger" type="submit" name="Rechazar" value="Rechazar">
+                                <%   
+                            }
+                            %>
+                            
+                            
+                            <input class="btn btn-primary" type="submit" name="Informe" value="Hacer Informe">
+                            <a href="consultaPruebaEntrada.jsp" class="btn btn-primary"> Volver</a>
                         </div>
                         
                         <div class="form-group">
@@ -298,7 +446,7 @@
             </div>
         </div>   
         <script>
-             var i=1;
+             var i=<%=CantDetalle%>;
              var calculadoPorcentajes = false;
             $("#add_row").click(function(){
                 

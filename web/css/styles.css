@@ -169,3 +169,12 @@ html, body {
 /*.btn-full{
     width: 80%;
 }*/
+
+.form-consulta .form-group{
+    margin-bottom: 0;
+}
+
+.btn-controles{
+    width: 100%;
+    border-radius: 0;
+}
