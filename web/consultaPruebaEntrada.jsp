@@ -156,6 +156,7 @@
                                                             <td> <%= rs.getString(6)%> </td>
                                                             <td> <%= rs.getString(7)%> </td>
                                                             <td> <%= rs.getString(8)%> </td>
+                                                            <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe</a></td>
                                                         </tr>
                                                         <%
                                                         encuentra = true;

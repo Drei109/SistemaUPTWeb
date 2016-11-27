@@ -56,7 +56,7 @@
                                 Imprimir<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Imprimir informes aprobados</a></li>
+                                <li><a href="imprimirReporte.jsp">Imprimir informes aprobados</a></li>
                             </ul>                    
                         </li>
                         <li class="dropdown">
