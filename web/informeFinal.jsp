@@ -70,7 +70,7 @@
 
                                     <label class="col-lg-2 ">Teórico :</label>
                                     <div class="col-lg-1">
-                                        <input type="checkbox" min="0" class="" id="" name='matriculados' value=''>
+                                        <input type="checkbox" min="0" class="" id="" name='' value=''>
                                     </div>
 
                                     <label class="col-lg-2 ">Práctico :</label>
@@ -89,7 +89,7 @@
 
                                     <label class="col-lg-2 ">Taller :</label>
                                     <div class="col-lg-1">
-                                      <input type="checkbox" min="0" class="" id="" name='evaluados' value="">
+                                      <input type="checkbox" min="0" class="" id="" name='' value="">
                                     </div>                                
                                 </div>
 
@@ -318,19 +318,19 @@
                                     <h4>Observaciones :</h4>                                    
                                 </div>
                                 <div class="observaciones">
-                                    <label>1.</label>
+                                    <label>1.De los estudiantes. Nivel académico, conocimientos previos, interés en el curso, estilos de aprendizaje.</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>2.</label>
+                                    <label>2.Asistencia y puntualidad de los estudiantes.</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>3.</label>
+                                    <label>Del sílabo. ¿Qué temas del sílabo no se han completado? ¿Considera todos los temas adecuados? ¿Qué temas requieren más tiempo de dedicación?</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>4.</label>
+                                    <label>4. Uso del Aula Virtual. Información colocada, uso de foros, chat y cantidad de visitas estudiantiles.</label>
                                     <div class="row">
                                         <label class="col-lg-2 ">Material del curso :</label>
                                         <div class="col-lg-1">
@@ -361,23 +361,24 @@
                                     </div>
                                 </div>
                                 <div class="observaciones">
-                                    <label>5.</label>
+                                    <label>5. Disponibilidad de recursos en aulas y laboratorios</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>6.</label>
+                                    <label>6. Sílabo por competencias. ¿Qué actividades realizó usted para la evaluación del cumplimiento de las competencias de su curso,
+                                    por los estudiatnes? ¿Podría presentar una propuesta de evaluación de las competencias de su curso?</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>7.</label>
+                                    <label>7.Mejora contínua. ¿Qué actividades de mejora contínua ha realizado en el curso de este ciclo y cuáles propone para el siguiente, para mejorar el rendimiento académico del estudiante.</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>8.</label>
+                                    <label>8. Actualización docente. Ha seguido usted algún curso de actualización profesional o docente en los últimos dos años. Indique tema del curso y duración</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>9.</label>
+                                    <label>9.Comentarios y Recomendaciones. Serán útiles para mejorar el Plan de Estudio y los servicios que brinadn la Escuela, la Facultad y la Universidad</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                 </div>
                                 
