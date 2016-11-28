@@ -185,3 +185,13 @@ html, body {
     margin-bottom: 5%;
     /*background-color: white;*/
 }
+
+.sub-title{
+    margin-top: 2em;
+    margin-bottom: 1em;
+    
+}
+
+.observaciones{
+    margin-bottom: 1.5em;
+}
