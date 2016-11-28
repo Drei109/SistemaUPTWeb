@@ -25,15 +25,15 @@
                 <form class="form-reporte shadow">
                     <fieldset>
                         <div class="form-group">
-                            <h2>Informes Faltantes</h2>
+                            <h2>Informes Final del Curso</h2>
                         </div>
                         <div class="form-group">
                             <label for="select" class="control-label">Tipo de reporte</label>
                             <div class="">
                               <select class="form-control" id="select" name="tipoReporte">
                                 <option value="Prueba Entrada">Informe Prueba de Entrada</option>
-                                <option value="2">Informe de Portafolio</option>
                                 <option value="Informe Final Curso">Informe Prueba Final</option>
+                                <option value="2">Informe de Portafolio</option>
                               </select>
                             </div>
                         </div>
@@ -70,8 +70,21 @@
                                                         <td><%=objenti.getNombreCurso()%></td>
                                                         <td><%=objenti.getNombreDocente()%></td>
                                                         <td>
-<!--                                                            <input class="btn btn-info btn-xs" type="submit" name="Detalle" value="Hacer informe">-->
-                                                            <a href="pruebaEntrada.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                            <%
+                                                                if(busqueda.equals("Prueba Entrada")){
+                                                                %>
+                                                                    <a href="pruebaEntrada.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                <%
+                                                            }
+                                                            %>
+                                                            <%
+                                                                if(busqueda.equals("Informe Final Curso")){
+                                                                %>
+                                                                    <a href="informeFinal.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                <%
+                                                            }
+                                                            %>
+                                                            
                                                         </td>
                                                     </tr>
                                                     <%

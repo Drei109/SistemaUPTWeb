@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="700" pageHeight="1500" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="580"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#5F9EA0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFFDFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="CH" mode="Opaque" forecolor="#000000" backcolor="#006699" fill="Solid">
+		<pen lineWidth="1.0" lineColor="#000000"/>
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#5F9EA0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFFDFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Cabecera">
+		<parameter name="ID1" class="java.lang.Integer"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT c.idCurso, c.nombre, c.horasTeoricas, c.horasPracticas, ifc.lab, ifc.taller,
+d.nombreDocente, d.emailDocente, d.celularDocente
+FROM informefinalcurso ifc
+INNER JOIN cargaacademica ca ON
+    ca.idCargaAcademica = ifc.idCargaAcademica
+INNER JOIN curso c ON
+    c.idCurso = ca.idCurso
+INNER JOIN docente d ON
+    d.codDocente = ca.codDocente
+WHERE ifc.idinformefinalcurso = 11;]]>
+		</queryString>
+		<field name="idCurso" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="horasTeoricas" class="java.lang.Integer"/>
+		<field name="horasPracticas" class="java.lang.Integer"/>
+		<field name="lab" class="java.lang.String"/>
+		<field name="taller" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="DatosDocente">
+		<parameter name="ID2" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT c.idCurso, c.nombre, c.horasTeoricas, c.horasPracticas, ifc.lab, ifc.taller,
+d.nombreDocente, d.emailDocente, d.celularDocente
+FROM informefinalcurso ifc
+INNER JOIN cargaacademica ca ON
+    ca.idCargaAcademica = ifc.idCargaAcademica
+INNER JOIN curso c ON
+    c.idCurso = ca.idCurso
+INNER JOIN docente d ON
+    d.codDocente = ca.codDocente
+WHERE ifc.idinformefinalcurso = $P{ID2};]]>
+		</queryString>
+		<field name="idCurso" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="horasTeoricas" class="java.lang.Integer"/>
+		<field name="horasPracticas" class="java.lang.Integer"/>
+		<field name="lab" class="java.lang.String"/>
+		<field name="taller" class="java.lang.String"/>
+		<field name="nombreDocente" class="java.lang.String"/>
+		<field name="emailDocente" class="java.lang.String"/>
+		<field name="celularDocente" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="capacidades">
+		<parameter name="ID3" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT c.descripcion, n.nombreCapacidad, c.medidaCorrectiva FROM capacidad c
+INNER JOIN informefinalcurso ifc ON c.idInformeFinalCurso = ifc.idinformefinalcurso
+INNER JOIN nivel n ON c.idNivelCapacidad = n.idNivelCapacidad
+WHERE ifc.idinformefinalcurso = $P{ID3};]]>
+		</queryString>
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="nombreCapacidad" class="java.lang.String"/>
+		<field name="medidaCorrectiva" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="detallecapacidad">
+		<parameter name="ID4" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT medidaCorrectiva FROM capacidad  c
+INNER JOIN informefinalcurso ifc ON
+ifc.idinformefinalcurso = c.idInformeFinalCurso
+WHERE ifc.idinformefinalcurso = $P{ID4};]]>
+		</queryString>
+		<field name="medidaCorrectiva" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="observaciones">
+		<parameter name="ID5" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT titulo, subtitulo, descripcion FROM observaciones o
+INNER JOIN detalleobservaciones do
+ON o.idObservaciones = do.idobservaciones
+INNER JOIN informefinalcurso ifc
+ON do.idinformefinalcurso = ifc.idinformefinalcurso
+WHERE ifc.idinformefinalcurso = $P{ID5};]]>
+		</queryString>
+		<field name="titulo" class="java.lang.String"/>
+		<field name="subtitulo" class="java.lang.String"/>
+		<field name="descripcion" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM informefinalcurso ifc
+INNER JOIN cargaAcademica ca ON
+ifc.idCargaAcademica = ca.idCargaAcademica
+INNER JOIN semestre s ON
+s.idSemestre = ca.idSemestre
+INNER JOIN docente d ON
+d.codDocente = ca.codDocente
+INNER JOIN detalleobservaciones do ON
+do.idinformefinalcurso = ifc.idinformefinalcurso
+WHERE ifc.idinformefinalcurso = $P{ID};]]>
+	</queryString>
+	<field name="idinformefinalcurso" class="java.lang.Integer"/>
+	<field name="fechainformefinalcurso" class="java.sql.Timestamp"/>
+	<field name="idCargaAcademica" class="java.lang.Integer"/>
+	<field name="estadoInformeFinalCurso" class="java.lang.String"/>
+	<field name="cumpliSilabo" class="java.lang.Integer"/>
+	<field name="practiRealizadas" class="java.lang.Integer"/>
+	<field name="laboratoRealizadas" class="java.lang.Integer"/>
+	<field name="proyectoRealizado" class="java.lang.Integer"/>
+	<field name="estudianteAsiste" class="java.lang.Integer"/>
+	<field name="estudienteAproado" class="java.lang.Integer"/>
+	<field name="estudianteDesaprobado" class="java.lang.Integer"/>
+	<field name="notaMasAlta" class="java.lang.Integer"/>
+	<field name="notaPromedio" class="java.lang.Integer"/>
+	<field name="notaMasBaja" class="java.lang.Integer"/>
+	<field name="lab" class="java.lang.String"/>
+	<field name="taller" class="java.lang.String"/>
+	<field name="idPlanEstudio" class="java.lang.Integer"/>
+	<field name="idSemestre" class="java.lang.Integer"/>
+	<field name="idCurso" class="java.lang.String"/>
+	<field name="alumnosMatriculados" class="java.lang.Integer"/>
+	<field name="alumnosRetirados" class="java.lang.Integer"/>
+	<field name="alumnosAbandono" class="java.lang.Integer"/>
+	<field name="codDocente" class="java.lang.String"/>
+	<field name="nombreSemestre" class="java.lang.String"/>
+	<field name="anioSemestre" class="java.lang.String"/>
+	<field name="estadoSemestre" class="java.lang.String"/>
+	<field name="nombreDocente" class="java.lang.String"/>
+	<field name="emailDocente" class="java.lang.String"/>
+	<field name="celularDocente" class="java.lang.String"/>
+	<field name="gradoDocente" class="java.lang.String"/>
+	<field name="iddetalleobservaciones" class="java.lang.Integer"/>
+	<field name="idobservaciones" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="889" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="12" width="660" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME FINAL DEL CURSO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="32" width="660" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreSemestre}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table" style="table" x="25" y="64" width="615" height="63"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Cabecera">
+						<datasetParameter name="ID1">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="80">
+						<jr:columnHeader style="CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="80" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Código Curso]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement style="table" x="0" y="0" width="80" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{idCurso}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="36">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="36" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Sec.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table" x="0" y="0" width="36" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[A]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="131">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="131" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Nombre del curso]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement style="table" x="0" y="0" width="131" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="366">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="366" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Tipo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:column width="48">
+							<jr:detailCell height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="table" x="0" y="0" width="48" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Teoría]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="table" x="0" y="0" width="48" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression class="java.lang.Integer"><![CDATA[$F{horasTeoricas}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="53">
+							<jr:detailCell height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="table" x="0" y="0" width="53" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Práctica]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="table" x="0" y="0" width="48" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression class="java.lang.Integer"><![CDATA[$F{horasPracticas}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="41">
+							<jr:detailCell height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="table" x="0" y="0" width="40" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Lab.]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="43">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="table" x="0" y="0" width="43" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$F{lab}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="43">
+							<jr:detailCell height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="table" x="0" y="0" width="43" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Taller]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="42">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement style="table" x="0" y="0" width="42" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$F{taller}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="25" y="140" width="615" height="64"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DatosDocente">
+						<datasetParameter name="ID2">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="129">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="129" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Nombre del Docente :]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="129" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[E-mail Personal :]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="486">
+						<jr:columnHeader height="30" rowSpan="1">
+							<textField>
+								<reportElement style="table" x="0" y="0" width="486" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreDocente}]]></textFieldExpression>
+							</textField>
+						</jr:columnHeader>
+						<jr:column width="211">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="table" x="0" y="0" width="211" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$F{emailDocente}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="101">
+							<jr:detailCell height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="CH" x="0" y="0" width="101" height="30" forecolor="#FFFFFF"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Celular :]]></text>
+								</staticText>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="174">
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement style="table" x="0" y="0" width="174" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$F{celularDocente}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<rectangle>
+				<reportElement x="25" y="248" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="248" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="248" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="268" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="288" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="328" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="348" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="308" width="409" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="37" y="248" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Porcentaje de cumplimiento del sílabo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="268" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Prácticas calificadas realizadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="288" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Experiencias de laboratorio realizadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="308" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Proyectos y/o trabajos de investigación realizados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="328" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estudiantes matriculados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="348" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estudiantes retirados]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="25" y="388" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="408" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="428" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="368" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="447" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="467" width="409" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="25" y="487" width="409" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="37" y="388" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estudiantes que asisten]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="408" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estudiantes aprobados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="428" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estudiantes desaprobados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="368" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Estudiantes con abandono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="467" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nota final promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="487" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nota final más baja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="447" width="397" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nota final más alta]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="478" y="268" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="288" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="308" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="328" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="428" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="388" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="348" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="368" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="408" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="447" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="487" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="467" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="268" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="308" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="288" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="348" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="388" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="368" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="328" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="428" width="75" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="565" y="408" width="75" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="37" y="214" width="397" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMEN DEL CURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="214" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="565" y="214" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="478" y="248" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cumpliSilabo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="565" y="248" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="565" y="268" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="565" y="288" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="565" y="308" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[100]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="565" y="328" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[100]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="478" y="268" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{practiRealizadas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="288" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{laboratoRealizadas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="308" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{proyectoRealizado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="328" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{alumnosMatriculados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="348" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{alumnosRetirados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="368" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{alumnosAbandono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="388" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{estudianteAsiste}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="408" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{estudienteAproado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="427" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{estudianteDesaprobado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="448" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{notaMasAlta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="468" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{notaPromedio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="488" width="53" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{notaMasBaja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="565" y="348" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[($F{alumnosRetirados}.doubleValue()*100)/ $F{alumnosMatriculados}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="565" y="368" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[($F{alumnosAbandono}.doubleValue()*100)/ $F{alumnosMatriculados}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="565" y="388" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[($F{estudianteAsiste}.doubleValue()*100)/ $F{alumnosMatriculados}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="565" y="408" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[($F{estudienteAproado}.doubleValue()*100)/ $F{alumnosMatriculados}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="565" y="428" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[($F{estudianteDesaprobado}.doubleValue()*100)/ $F{alumnosMatriculados}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table 3" style="table 3" x="25" y="552" width="615" height="58"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="capacidades">
+						<datasetParameter name="ID3">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="479">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="479" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Capacidades del curso]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="16" y="0" width="463" height="20"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="134">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="CH" x="0" y="0" width="134" height="30" forecolor="#FFFFFF"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Nivel alcanzado]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="13" y="0" width="121" height="20"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreCapacidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="25" y="525" width="397" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOGROS DE CAPACIDADES DEL CURSO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="636" width="615" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[¿Cuál cree que ha sido el motivo por el cual los estudiantes no alcanzaron el logro de capacidad?]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 4" style="table 4" x="25" y="656" width="615" height="53"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="detallecapacidad">
+						<datasetParameter name="ID4">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="612">
+						<jr:columnHeader style="CH" height="7" rowSpan="1"/>
+						<jr:detailCell style="table 4_TD" height="35" rowSpan="1">
+							<textField>
+								<reportElement x="11" y="0" width="601" height="35"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{medidaCorrectiva}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="25" y="746" width="397" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBSERVACIONES]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="25" y="777" width="615" height="101"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="observaciones">
+						<datasetParameter name="ID5">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:listContents height="101" width="615">
+						<textField>
+							<reportElement x="12" y="6" width="588" height="20"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{titulo}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="12" y="26" width="588" height="20"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{subtitulo}]]></textFieldExpression>
+						</textField>
+						<rectangle>
+							<reportElement x="12" y="46" width="588" height="47"/>
+						</rectangle>
+						<textField>
+							<reportElement x="23" y="46" width="577" height="47"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="7" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="7" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="37" width="615" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Enviar en formato digital este informe y la prueba de entrada a:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="57" width="615" height="18" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[upt_sistemas@yahoo.es]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="9" width="296" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreDocente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="9" splitType="Stretch"/>
+	</summary>
+</jasperReport>
