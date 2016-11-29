@@ -8,7 +8,6 @@
     String busqueda = "Prueba Entrada";
     String idCurso = request.getParameter("id_Curso");
 
-    
 
     ArrayList<ClsNegocioPruebaEntrada> dato = null;
     ClsNegocioPruebaEntrada datos = new ClsNegocioPruebaEntrada();

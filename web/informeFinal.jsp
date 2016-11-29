@@ -28,6 +28,7 @@
     String nivelUsuario = String.valueOf(session.getAttribute("nivelUsuario"));   
     String busqueda = "Prueba Entrada";
     String idCurso = request.getParameter("id_Curso");
+    String idInfoFinal = request.getParameter("id_InfoFinal");
     
     String datos[] = (String[]) request.getAttribute("campo");
     
@@ -61,7 +62,12 @@
 
                                     <label class="col-lg-2 ">Código :</label>
                                     <div class="col-lg-3">
-                                        <input type="text" class="form-control input-sm" id="" value='<%=datos[0]%>'>
+                                        <input type="text" class="form-control input-sm"  name="" id="" value='<%=datos[0]%>'>
+                                        
+                                        <% if(request.getParameter("id_Curso") != null){
+                                        %>
+                                            <input  type="hidden" name="idCurso" value="<%=idCurso%>"
+                                        <% } %>
                                     </div>
 
 
@@ -89,12 +95,12 @@
                                 <div class="row">   
                                     <label class="col-lg-2 ">Laboratorio :</label>
                                     <div class="col-lg-1">
-                                        <input type="checkbox" min="0" class="" id="" value=''>
+                                        <input type="checkbox" min="0" name="Lab" class="" id="" value=''>
                                     </div>
 
                                     <label class="col-lg-2 ">Taller :</label>
                                     <div class="col-lg-1">
-                                      <input type="checkbox" min="0" class="" id="" name='' value="">
+                                      <input type="checkbox" min="0" name="Taller" class="" id="" name='' value="">
                                     </div>                                
                                 </div>
 
@@ -285,7 +291,8 @@
                                 <div class="form-group table-responsive">
                                     <table class="table table-striped table-responsive table-prueba-entrada" id="tab_logic">
                                         <thead>
-                                            <th class="col-md-7">Capacidades del curso</th>
+                                            <th class="col-md-1">#</th>
+                                            <th class="col-md-6">Capacidades del curso</th>
                                             <th class="col-md-1">N</th>
                                             <th class="col-md-1">P</th>
                                             <th class="col-md-1">A</th>
@@ -294,12 +301,13 @@
                                         </thead>
                                         <tbody>
                                             <tr id='addr0'>
-                                                <td><input value="" type="text" class="form-control"/></td>
-                                                <td><input value="" type="text" class="form-control"/></td>
-                                                <td><input value="" type="text" class="form-control"/></td>
-                                                <td><input value="" type="text" class="form-control"/></td>
-                                                <td><input value="" type="text" class="form-control"/></td>
-                                                <td><input value="" type="text" class="form-control"/></td>
+                                                <td><input name="" value="1" type="text" class="form-control"/></td>
+                                                <td><input name="detalledescripcionCapa" value="" type="text" class="form-control"/></td>
+                                                <td><input name="detallenadaCapa" value="" type="text" class="form-control"/></td>
+                                                <td><input name="detallepocoCapa" vmuyBienCapa" alue="" type="text" class="form-control"/></td>
+                                                <td><input name="detalleaceptableCapa" value="" type="text" class="form-control"/></td>
+                                                <td><input name="detallebienCapa" value="" type="text" class="form-control"/></td>
+                                                <td><input name="detallemuyBienCapa" value="" type="text" class="form-control"/></td>
                                             </tr>
                                             <tr id='addr1'></tr>
                                         </tbody>
@@ -325,67 +333,67 @@
                                 </div>
                                 <div class="observaciones">
                                     <label>1.De los estudiantes. Nivel académico, conocimientos previos, interés en el curso, estilos de aprendizaje.</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsDelEstudiante" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>2.Asistencia y puntualidad de los estudiantes.</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsAsistencia" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>Del sílabo. ¿Qué temas del sílabo no se han completado? ¿Considera todos los temas adecuados? ¿Qué temas requieren más tiempo de dedicación?</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsDelSilabo" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>4. Uso del Aula Virtual. Información colocada, uso de foros, chat y cantidad de visitas estudiantiles.</label>
                                     <div class="row">
                                         <label class="col-lg-2 ">Material del curso :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='materialcurso' value=''>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulamaterialcurso' value='material'>
                                         </div>
                                         <label class="col-lg-2 ">Cuestionarios :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='cuestionarios' value=''>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulacuestionarios' value='cuestionarios'>
                                         </div>
                                         <label class="col-lg-2 ">Tareas encargadas:</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='tareasencargadas' value=''>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulatareasencargadas' value='tareas'>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <label class="col-lg-2 ">Foros :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='foros' value=''>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaforos' value='foros'>
                                         </div>
                                         <label class="col-lg-2 ">Examenes virtuales :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='examenesvirtuales' value=''>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaexamenesvirtuales' value='examenes'>
                                         </div>
                                         <label class="col-lg-2 ">Slideshow :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='slideshow' value=''>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaslideshow' value='ppt'>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="observaciones">
                                     <label>5. Disponibilidad de recursos en aulas y laboratorios</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsDisponibilidad" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>6. Sílabo por competencias. ¿Qué actividades realizó usted para la evaluación del cumplimiento de las competencias de su curso,
                                     por los estudiatnes? ¿Podría presentar una propuesta de evaluación de las competencias de su curso?</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsCompetencias" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>7.Mejora contínua. ¿Qué actividades de mejora contínua ha realizado en el curso de este ciclo y cuáles propone para el siguiente, para mejorar el rendimiento académico del estudiante.</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsMejora" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>8. Actualización docente. Ha seguido usted algún curso de actualización profesional o docente en los últimos dos años. Indique tema del curso y duración</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsDocente" class="form-control" rows="3"></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>9.Comentarios y Recomendaciones. Serán útiles para mejorar el Plan de Estudio y los servicios que brinadn la Escuela, la Facultad y la Universidad</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea name="obsComentarios" class="form-control" rows="3"></textarea>
                                 </div>
                                 
                             </div>
@@ -407,7 +415,9 @@
                                 }
                                 %>
 
-
+                                <% if(idInfoFinal != null){%>
+                                    <input type="hidden" name="idInfoFinal" value="<%=idInfoFinal%>"/>
+                                <%}%>
                                 <input class="btn btn-primary" type="submit" name="Informe" value="Hacer Informe">
                                 <a href="consultaPruebaEntrada.jsp" class="btn btn-primary"> Volver</a>
                             </div>
@@ -426,15 +436,15 @@
              var calculadoPorcentajes = false;
             $("#add_row").click(function(){
                 
-                $('#addr'+i).html("<td><input value='"+ (i+1) +"' type='text' class='form-control'/></td>"+
-                               "<td><input name='detalleCon"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='detalleNa"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='naPer"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='detalleSu"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='suPer"+i+"' type='text' class='form-control'/></td>"
-                               "<td><input name='detalleBu"+i+"' type='text' class='form-control'/></td>");
+                $('#addr'+i).html("<td><input value='"+ (i + 1) +"' type='text' class='form-control'/></td>"+
+                               "<td><input name='detalledescripcionCapa"+i+"' type='text' class='form-control'/></td>"+
+                               "<td><input name='detallenadaCapa"+i+"' type='text' class='form-control'/></td>"+
+                               "<td><input name='detallepocoCapa"+i+"' type='text' class='form-control'/></td>"+
+                               "<td><input name='detalleaceptableCapa"+i+"' type='text' class='form-control'/></td>"+
+                               "<td><input name='detallebienCapa"+i+"' type='text' class='form-control'/></td>" +
+                               "<td><input name='detallemuyBienCapa"+i+"' type='text' class='form-control'/></td>");
 //                               "<td><input name='buPer"+i+"' type='text' class='form-control'/></td>"+
-//                               "<td><input name='total"+i+"' type='text' class='form-control'/></td>");                               
+//                               "<td><input name='total"+i+"' type='text' class='form-control'/></td>");  
 
                 $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
 

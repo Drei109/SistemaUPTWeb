@@ -16,6 +16,10 @@
         <servlet-name>nuevo</servlet-name>
         <servlet-class>Svlet.nuevo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>nasd</servlet-name>
+        <servlet-class>Svlet.nasd</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>agregarInforme</servlet-name>
         <url-pattern>/agregarInforme</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>nuevo</servlet-name>
         <url-pattern>/nuevo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>nasd</servlet-name>
+        <url-pattern>/nasd</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
