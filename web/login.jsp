@@ -33,7 +33,7 @@
                         session.setAttribute("nombreDocente", rs.getString(6));
                         rs.close();
                         usuario.conexion.close();
-                        response.sendRedirect("index.jsp");
+                        response.sendRedirect("reportesFaltantes.jsp");
                     }
                     else{
                         mensaje = "Lo sentimos: Te encuetras desactivado";
