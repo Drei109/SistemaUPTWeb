@@ -3,6 +3,7 @@
     Created on : 14-nov-2016, 20:52:58
     Author     : Drei
 --%>
+<%@page import="Negocio.ClsNegocioInformeFinalCurso"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Entidad.ClsEntidadPruebaCursosFaltantes"%>
 <%@page import="java.util.Iterator"%>
@@ -24,8 +25,11 @@
     String mensaje = "";
     
     ArrayList<String> DatosPruebaEntradaUsuario = new ArrayList<String>();    
-    ArrayList<String> DatosPruebaEntradaAdministrador = new ArrayList<String>();        
+    ArrayList<String> DatosPruebaEntradaAdministrador = new ArrayList<String>();  
     
+//    ArrayList<String> DatosInformeFinalUsuario = new ArrayList<String>();    
+//    ArrayList<String> DatosInformeFinalAdministrador = new ArrayList<String>();
+
     String tipoInforme = "";
     
     if(request.getParameter("Listar")!=null){
@@ -99,6 +103,70 @@
                     break;
                 }      
                 break;
+                
+            case "Final":
+                ClsNegocioInformeFinalCurso negInformeFinalCurso = new ClsNegocioInformeFinalCurso();
+
+                criterio = request.getParameter("criterio");
+                busqueda = request.getParameter("busqueda");
+
+                switch(nivelUsuario){
+                case "Usuario":                    
+                    try {
+                    rs  =negInformeFinalCurso.ConsultaInformeUsuario(criterio, busqueda,codDocente);
+
+                    boolean encuentra = false;
+                    
+                    String Campo[] = new String[5];
+                    
+                    while (rs.next()) {
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(1)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(2)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(3)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(4)); 
+                        DatosPruebaEntradaUsuario.add((String) rs.getString(5)); 
+                        
+                        encuentra = true;
+                    }
+
+                    if (encuentra == false) {
+                        mensaje = "No se encuentra.";
+                    }
+                    rs.close();
+                    negInformeFinalCurso.conexion.close();
+                    } catch (Exception ex) {
+                    }
+                    break;
+                case "Supervisor":            
+                case "Administrador":
+                    try {
+                        rs  =negInformeFinalCurso.ConsultaInformeAdministrador(criterio, busqueda);
+
+                        boolean encuentra = false;
+                        String Campo[] = new String[8];
+
+                        while (rs.next()) {
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(1))); 
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(2))); 
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(3))); 
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(4))); 
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(5))); 
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(6))); 
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(7))); 
+                            DatosPruebaEntradaAdministrador.add(String.valueOf(rs.getString(8)));
+                            encuentra = true;
+                        }
+
+                        if (encuentra == false) {
+                            mensaje = "No se encuentra.";
+                        }
+                        rs.close();
+                        negInformeFinalCurso.conexion.close();
+                    } catch (Exception ex) {
+                    }
+                    break;
+                }      
+                break;
         }
     }
 
@@ -119,7 +187,7 @@
                             <div class="">
                               <select class="form-control" id="select" name="tipoReporte">
                                 <option value="Entrada">Informe Prueba de Entrada</option>
-                                <option value="Final">Informe Prueba Final</option>
+                                <option value="Final">Informe Final</option>
                                 <option value="Portafolio">Informe de Portafolio</option>
                               </select>
                             </div>
@@ -200,7 +268,7 @@
                                     <tbody>
                                         <%
                                             if (request.getParameter("Listar")!=null) {
-                                                if (tipoInforme.equals("Entrada") && nivelUsuario.equals("Usuario")) {
+                                                if (nivelUsuario.equals("Usuario")) {
                                                     for (int i = 0; i < DatosPruebaEntradaUsuario.size(); i+=5) {
                                                         %>
                                                             <tr>
@@ -210,14 +278,27 @@
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+3)%></td>
                                                                 <td><%=DatosPruebaEntradaUsuario.get(i+4)%></td>
                                                                 <td>
-                                                                    <a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                    <%
+                                                                        if(tipoInforme.equals("Entrada")){
+                                                                    %>
+                                                                            <a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                    <%
+                                                                        }
+                                                                        else if(tipoInforme.equals("Final")){
+                                                                    %>
+                                                                            <a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaUsuario.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                                    
+                                                                    
                                                                 </td>
                                                             </tr>
                                                         <%
                                                     }
                                                 }
                                                 
-                                                if (tipoInforme.equals("Entrada") && (nivelUsuario.equals("Administrador") || nivelUsuario.equals("Supervisor"))) {
+                                                if (nivelUsuario.equals("Supervisor")) {
                                                     for (int i = 0; i < DatosPruebaEntradaAdministrador.size(); i+=8) {
                                                         %>
                                                             <tr>
