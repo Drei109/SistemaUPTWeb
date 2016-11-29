@@ -79,8 +79,8 @@
                                                             %>
                                                             <%
                                                                 if(busqueda.equals("Informe Final Curso")){
-                                                                %>
-                                                                    <a href="informeFinal.jsp?id_Curso=<%=objenti.getIdCurso()%>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
+                                                                %>            
+                                                                <a href="InfoFinalControls/ListarInfoFinal.jsp?id_Curso=<%=objenti.getIdCurso() %>" class="btn btn-info btn-xs btn-controles">Hacer informe</a>                                      
                                                                 <%
                                                             }
                                                             %>

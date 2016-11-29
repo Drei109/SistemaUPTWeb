@@ -8,6 +8,14 @@
         <servlet-name>listarInformeFinal</servlet-name>
         <servlet-class>Servlet.listarInformeFinal</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListaRepo</servlet-name>
+        <servlet-class>Servlet.ListaRepo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>nuevo</servlet-name>
+        <servlet-class>Svlet.nuevo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>agregarInforme</servlet-name>
         <url-pattern>/agregarInforme</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>listarInformeFinal</servlet-name>
         <url-pattern>/listarInformeFinal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaRepo</servlet-name>
+        <url-pattern>/ListaRepo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>nuevo</servlet-name>
+        <url-pattern>/nuevo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

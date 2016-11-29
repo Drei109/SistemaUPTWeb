@@ -13,7 +13,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Negocio.ClsNegocioPruebaEntrada"%>
-<%@include file="header.jsp" %>
+<%@include file="/InfoFinalControls/headerInfoFinal.jsp" %>
 
 <%@ page import = "java.util.Map" %>
 
@@ -29,6 +29,7 @@
     String busqueda = "Prueba Entrada";
     String idCurso = request.getParameter("id_Curso");
     
+    String datos[] = (String[]) request.getAttribute("campo");
     
 %>
 
@@ -39,7 +40,7 @@
         <div class="container body-padding">
             <div class="row">
                 <div class="form-reporte shadow">
-                    <form class="" method="post">
+                    <form class="" method="post" action="guardarInforme.jsp">
                         <fieldset>
 
                             <div class="form-group">
@@ -55,27 +56,31 @@
 
                                     <label class="col-lg-2 ">Nombre :</label>
                                     <div class="col-lg-4">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" class="form-control input-sm" id="" value='<%=datos[1]%>'>
                                     </div>   
 
                                     <label class="col-lg-2 ">Código :</label>
                                     <div class="col-lg-3">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" class="form-control input-sm" id="" value='<%=datos[0]%>'>
                                     </div>
 
 
                                 </div>
-
+                                
+                                <% String teo = Integer.parseInt(datos[2]) > 0 ? "checked":""; 
+                                   String prac = Integer.parseInt(datos[3]) > 0 ? "checked":"";
+                                %>
+                                    
                                 <div class="row">
 
                                     <label class="col-lg-2 ">Teórico :</label>
                                     <div class="col-lg-1">
-                                        <input type="checkbox" min="0" class="" id="" name='' value=''>
+                                        <input type="checkbox" min="0" class="" id="" name='' value='' <%=teo%>>
                                     </div>
 
                                     <label class="col-lg-2 ">Práctico :</label>
                                     <div class="col-lg-1">
-                                        <input type="checkbox" min="0" class="" id="" value=''>
+                                        <input type="checkbox" min="0" class="" id="" value='' <%=prac%>>
                                     </div>              
 
 
@@ -100,7 +105,7 @@
                                 <div class="row">                                
                                     <label class="col-lg-2 ">Nombre :</label>
                                     <div class="col-lg-4">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" class="form-control input-sm" id="" value='<%=datos[8]%>'>
                                     </div>                      
                                 </div>
 
@@ -108,12 +113,12 @@
 
                                     <label class="col-lg-2 ">Email :</label>
                                     <div class="col-lg-4">
-                                        <input type="number" min="0" class="form-control input-sm" id="" value=''>
+                                        <input type="email" min="0" class="form-control input-sm" id="" value='<%=datos[9]%>'>
                                     </div>
 
                                     <label class="col-lg-2 ">Celular :</label>
                                     <div class="col-lg-3">
-                                      <input type="number" min="0" class="form-control input-sm" id="" value=''>
+                                      <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos[10]%>'>
                                     </div>                                
                                 </div>
 
@@ -134,109 +139,109 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Porcentaje de cumplimiento del sílabo</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porSilabo" class="form-control input-sm" id="" value=''>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeSilabo" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Prácticas calificadas realizadas</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="caliRealizadas" class="form-control input-sm" id="" value=''>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajePCalificadas" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Experiencias de laboratorio realizadas</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="laboRealizada" class="form-control input-sm" id="" value=''>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeLabRealizadas" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Proyectos y/o trabajos de investigación realizados</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="proyeRealizado" class="form-control input-sm" id="" value=''>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajePRealiados" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes matriculados</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="estMatricu" class="form-control input-sm" id="" value='<%=datos[4]%>'>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeMatriculados" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes retirados</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="estReti" class="form-control input-sm" id="" value='<%=datos[5]%>'>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeRetirados" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes con abandono</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="estAbando" class="form-control input-sm" id="" value='<%=datos[6]%>'>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeAbandono" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes que asisten</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="estAsiste" class="form-control input-sm" id="" value=''>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeAsisten" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes aprobados</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="estAprobado" class="form-control input-sm" id="" value=''>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeAprobados" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes desaprobados</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="estDesapro" class="form-control input-sm" id="" value=''>
                                     </div>  
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="porcentajeDesaprobados" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Nota final más alta</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="notaMasAlta" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Nota final promedio</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="notaProm" class="form-control input-sm" id="" value=''>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Nota final más baja</label>
                                     <div class="col-lg-1">
-                                        <input type="text" class="form-control input-sm" id="" value=''>
+                                        <input type="text" name="notaMasBaja" class="form-control input-sm" id="" value=''>
                                     </div>   
                                 </div>                            
                             </div>    
@@ -288,7 +293,7 @@
                                             <th class="col-md-1">M</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr id='addr0'>
                                                 <td><input value="" type="text" class="form-control"/></td>
                                                 <td><input value="" type="text" class="form-control"/></td>
                                                 <td><input value="" type="text" class="form-control"/></td>
@@ -296,6 +301,7 @@
                                                 <td><input value="" type="text" class="form-control"/></td>
                                                 <td><input value="" type="text" class="form-control"/></td>
                                             </tr>
+                                            <tr id='addr1'></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -420,15 +426,15 @@
              var calculadoPorcentajes = false;
             $("#add_row").click(function(){
                 
-                $('#addr'+i).html("<td><input value='" + (i+1) + "' type='text' class='form-control'/></td>"+
+                $('#addr'+i).html("<td><input value='"+ (i+1) +"' type='text' class='form-control'/></td>"+
                                "<td><input name='detalleCon"+i+"' type='text' class='form-control'/></td>"+
                                "<td><input name='detalleNa"+i+"' type='text' class='form-control'/></td>"+
                                "<td><input name='naPer"+i+"' type='text' class='form-control'/></td>"+
                                "<td><input name='detalleSu"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='suPer"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='detalleBu"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='buPer"+i+"' type='text' class='form-control'/></td>"+
-                               "<td><input name='total"+i+"' type='text' class='form-control'/></td>");                               
+                               "<td><input name='suPer"+i+"' type='text' class='form-control'/></td>"
+                               "<td><input name='detalleBu"+i+"' type='text' class='form-control'/></td>");
+//                               "<td><input name='buPer"+i+"' type='text' class='form-control'/></td>"+
+//                               "<td><input name='total"+i+"' type='text' class='form-control'/></td>");                               
 
                 $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
 
@@ -449,51 +455,67 @@
             $("#calc_percentages").click(function(){
                 var filas = i;
                 var permessage = "";
-                if ($("input[name=evaluados]").val() !== "") {
-                    var evaluados = $("input[name=evaluados]").val();
-                    var matriculados = $("input[name=matriculados]").val();
-                    var CantNoAceptable = 0;
-                    var CantSuficiente  = 0;
-                    var CantBueno       = 0;  
+                
+                if ($("input[name=estMatricu]").val() !== "") {
+                    var matriculados = parseFloat( $("input[name=estMatricu]").val() );
+                    var porcentajeTotal = 0.0;
+                    if (matriculados >= 1) {
+                        porcentajeTotal = ((matriculados / matriculados) *100) ; 
+                        $("input[name=porcentajeMatriculados]").val(porcentajeTotal);
+                    }
+                    else{
+                        $("input[name=porcentajeMatriculados]").val(0);
+                    }
+                    if ($("input[name=estReti]").val() !== "" && $("input[name=estAbando]").val() !== "" &&
+                        $("input[name=estAsiste]").val() !== "" && $("input[name=estAprobado]").val() !== "" &&
+                        $("input[name=estDesapro]").val() !== "") {
 
-                    //3 5 7
+                        var retirados = parseFloat( $("input[name=estReti]").val() );
+                        var abandono = parseFloat(  $("input[name=estAbando]").val() );
+                        var asisten = parseFloat( $("input[name=estAsiste]").val() );
+                        var aprobados = parseFloat( $("input[name=estAprobado]").val() );
+                        var desaprobados = parseFloat( $("input[name=estDesapro]").val() );
+                        
+                        var eva = aprobados + desaprobados;
 
-                    if (!(filas <= 0 || evaluados <= 0 || evaluados > matriculados)) {
-
-                        for (var k = 0; k < filas; k++) {
-
-                            if (!($("input[name=detalleNa"+k+"]").val() === "" || $("input[name=detalleSu"+k+"]").val() === "" || $("input[name=detalleBu"+k+"]").val() === "" )) {
-                                CantNoAceptable = parseInt($("input[name=detalleNa"+k+"]").val());
-                                CantSuficiente  = parseInt($("input[name=detalleSu"+k+"]").val());
-                                CantBueno       = parseInt($("input[name=detalleBu"+k+"]").val());
+                        if ( (asisten <= matriculados && asisten > 0 ) ) {
+                            if ( eva <= asisten && (aprobados + desaprobados) > 0 && aprobados >= 0 && desaprobados >= 0) {
+//                                DecimalFormat df = new DecimalFormat("#0.0");
+                                var preti = (retirados * porcentajeTotal ) /   matriculados;
+    
+                                $("input[name=porcentajeRetirados]").val( preti );
                                 
-                                if ((CantNoAceptable+CantSuficiente+CantBueno) > evaluados) {
-                                    permessage = "Cantidades de la tabla superior a los evaluados";
-                                    break;
-                                }
-                                else{
-                                    $("input[name=naPer"+k+"]").val(CantNoAceptable*100/evaluados);
-                                    $("input[name=suPer"+k+"]").val(CantSuficiente*100/evaluados);
-                                    $("input[name=buPer"+k+"]").val(CantBueno*100/evaluados);
-                                    $("input[name=total"+k+"]").val(((CantNoAceptable*100)/evaluados) + ((CantSuficiente*100)/evaluados) + ((CantBueno*100)/evaluados));
+                                var paban = (abandono * porcentajeTotal) / matriculados;
+                                console.log(paban);
+                                
+                                $("input[name=porcentajeAbandono]").val( paban );
+                                $("input[name=porcentajeAsisten]").val((asisten * porcentajeTotal)/matriculados);
+//                                txtPorcenAsisten.setText( ""+(asisten * porcentajeTotal)/matriculados);
+                                var asis = parseFloat(  $("input[name=porcentajeAsisten]").val() );
+//                                txtPorcenAsisten.setText( ""+df.format((asisten * porcentajeTotal)/matriculados));
 
-                                    calculadoPorcentajes = true;
-                                }
+
+        //                        double porcentajeAsisten = asis;
+        //                        df.format(porcentajeAsisten);
+                                $("input[name=porcentajeAprobados]").val((aprobados * asis)/asisten);
+                                $("input[name=porcentajeDesaprobados]").val((desaprobados * asis)/asisten);
+
+                                calculadoPorcentajes = true;
                             }
                             else{
-                                permessage = "Datos de la Tabla Vacios.";
-                                break;
+                                permessage = "Cantidad de aprobados y desaprobados no coinciden";
                             }
-
+                        }else{
+                            permessage = "Alumnos Asistentes mayores a los Matriculados";
                         }
 
                     }
                     else{
-                        permessage = "Datos incorrectos (tabla).";
+                        permessage = "Faltan Datos.";
                     }
                 }
                 else{
-                    permessage = "Ingrese la cantidad de evaluados.";
+                    permessage = "Numero de Matriculados NULO";
                 }
                 $("#permessage").html('');
                 $("#permessage").append(permessage);
