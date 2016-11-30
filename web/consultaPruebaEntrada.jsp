@@ -148,7 +148,7 @@
                                                                 <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
                                                             <% } 
                                                             else if(tipoInfo.equals("Final")) {%>
-                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
+                                                                <td> <a href="/SistemaInformesUPTWeb/InfoFinalControls/ListarInfoFinal.jsp?id_Final=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
                                                             <% } %>
                                                         </tr>
                                                         <%
@@ -199,7 +199,7 @@
                                                                 <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
                                                             <% } 
                                                             else if(tipoInfo.equals("Final")) {%>
-                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
+                                                                <td> <a href="/SistemaInformesUPTWeb/InfoFinalControls/ListarInfoFinal.jsp?id_Final=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
                                                             <% } %>
                                                         </tr>
                                                         <%

@@ -31,6 +31,7 @@
     String idInfoFinal = request.getParameter("id_PruebaEntrada");
     
     String datos[] = (String[]) request.getAttribute("campo");
+    String datos2[] = (String[]) request.getAttribute("campo2");
     
 %>
 
@@ -57,26 +58,46 @@
 
                                     <label class="col-lg-2 ">Nombre :</label>
                                     <div class="col-lg-4">
+                                        <% if(datos[1] != null){%>
                                         <input type="text" class="form-control input-sm" id="" value='<%=datos[1]%>'>
+                                        <%} %>
+                                        <% else if(datos2[1] != null){%>
+                                        <input type="text" class="form-control input-sm" id="" value='<%=datos2[1]%>'>
+                                        <%} %>
                                     </div>   
 
                                     <label class="col-lg-2 ">Código :</label>
                                     <div class="col-lg-3">
+                                        <% if(datos[1] != null){%>
                                         <input type="text" class="form-control input-sm"  name="" id="" value='<%=datos[0]%>'>
+                                        <%} %>
+                                        <% else if(datos2[1] != null){%>
+                                        <input type="text" class="form-control input-sm"  name="" id="" value='<%=datos2[0]%>'>
+                                        <%} %>
                                         
-                                        <% if(request.getParameter("id_Curso") != null){
+                                        <% if(datos[0] != null){
                                         %>
-                                            <input  type="hidden" name="idCurso" value="<%=idCurso%>"
-                                        <% }else if(request.getParameter("id_PruebaEntrada") != null){ %>
-                                            <input  type="hidden" name="id_PruebaEntrada" value="<%=idInfoFinal%>"
+                                            <input  type="hidden" name="idCurso" value="<%=datos[0]%>"
+                                        <% }else if(datos2[11] != null){ %>
+                                            <input  type="hidden" name="id_PruebaEntrada" value="<%=datos2[11]%>"
                                         <% } %>
                                     </div>
 
 
                                 </div>
                                 
-                                <% String teo = Integer.parseInt(datos[2]) > 0 ? "checked":""; 
-                                   String prac = Integer.parseInt(datos[3]) > 0 ? "checked":"";
+                                <% String teo = ""; String prac = ""; String lab = ""; String taller = "";
+                                   if(datos[0] != null){
+                                       teo = Integer.parseInt(datos[2]) > 0 ? "checked":""; 
+                                       prac = Integer.parseInt(datos[3]) > 0 ? "checked":"";
+                                   }
+                                   else if(datos2[2] != null){
+                                       teo =  Integer.parseInt(datos2[2]) > 0 ? "checked":""; 
+                                       prac = Integer.parseInt(datos2[3]) > 0 ? "checked":"";
+                                       lab =  Integer.parseInt(datos2[12]) > 0 ? "checked":"";
+                                       taller =  Integer.parseInt(datos2[13]) > 0 ? "checked":"";
+                                   }
+                                   
                                 %>
                                     
                                 <div class="row">
@@ -97,12 +118,12 @@
                                 <div class="row">   
                                     <label class="col-lg-2 ">Laboratorio :</label>
                                     <div class="col-lg-1">
-                                        <input type="checkbox" min="0" name="Lab" class="" id="" value=''>
+                                        <input type="checkbox" min="0" name="Lab" class="" id="" value='' <%=lab%>>
                                     </div>
 
                                     <label class="col-lg-2 ">Taller :</label>
                                     <div class="col-lg-1">
-                                      <input type="checkbox" min="0" name="Taller" class="" id="" name='' value="">
+                                      <input type="checkbox" min="0" name="Taller" class="" id="" name='' value="" <%=taller%>>
                                     </div>                                
                                 </div>
 
@@ -113,7 +134,12 @@
                                 <div class="row">                                
                                     <label class="col-lg-2 ">Nombre :</label>
                                     <div class="col-lg-4">
+                                        <% if(datos[8] != null){ %>
                                         <input type="text" class="form-control input-sm" id="" value='<%=datos[8]%>'>
+                                        <%}%>
+                                        <% else if(datos2[8] != null){ %>
+                                        <input type="text" class="form-control input-sm" id="" value='<%=datos[8]%>'>
+                                        <%}%>
                                     </div>                      
                                 </div>
 
@@ -121,12 +147,20 @@
 
                                     <label class="col-lg-2 ">Email :</label>
                                     <div class="col-lg-4">
+                                        <% if(datos[9] != null){ %>
                                         <input type="email" min="0" class="form-control input-sm" id="" value='<%=datos[9]%>'>
+                                        <%}%>
+                                        <% else if(datos2[10] != null){ %>
+                                        <input type="email" min="0" class="form-control input-sm" id="" value='<%=datos[10]%>'>
+                                        <%}%>
                                     </div>
 
                                     <label class="col-lg-2 ">Celular :</label>
                                     <div class="col-lg-3">
-                                      <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos[10]%>'>
+                                        <% if(datos[9] != null){ %>
+                                        <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos[9]%>'>
+                                        <%}%>
+                                        
                                     </div>                                
                                 </div>
 
@@ -183,7 +217,12 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes matriculados</label>
                                     <div class="col-lg-1">
+                                        <% if(datos[4] != null){ %>
                                         <input type="text" name="estMatricu" class="form-control input-sm" id="" value='<%=datos[4]%>'>
+                                        <%}%>
+                                        <% else if(datos2[4] != null){ %>
+                                        <input type="text" name="estMatricu" class="form-control input-sm" id="" value='<%=datos[4]%>'>
+                                        <%}%>
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeMatriculados" class="form-control input-sm" id="" value=''>
@@ -192,7 +231,13 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes retirados</label>
                                     <div class="col-lg-1">
+                                        <% if(datos[5] != null){ %>
                                         <input type="text" name="estReti" class="form-control input-sm" id="" value='<%=datos[5]%>'>
+                                        <%}%>
+                                        <% else if(datos2[5] != null){ %>
+                                        <input type="text" name="estReti" class="form-control input-sm" id="" value='<%=datos[5]%>'>
+                                        <%}%>
+                                        
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeRetirados" class="form-control input-sm" id="" value=''>
@@ -201,7 +246,13 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes con abandono</label>
                                     <div class="col-lg-1">
+                                        <% if(datos[6] != null){ %>
                                         <input type="text" name="estAbando" class="form-control input-sm" id="" value='<%=datos[6]%>'>
+                                        <%}%>
+                                        <% else if(datos2[6] != null){ %>
+                                        <input type="text" name="estReti" class="form-control input-sm" id="" value='<%=datos[6]%>'>
+                                        <%}%>
+                                        
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeAbandono" class="form-control input-sm" id="" value=''>
@@ -417,8 +468,8 @@
                                 }
                                 %>
 
-                                <% if(idInfoFinal != null){%>
-                                    <input type="hidden" name="idInfoFinal" value="<%=idInfoFinal%>"/>
+                                <% if(datos2[11] != null){%>
+                                    <input type="hidden" name="idInfoFinal" value="<%=datos2[11]%>"/>
                                 <%}%>
                                 <input class="btn btn-primary" type="submit" name="Informe" value="Hacer Informe">
                                 <a href="consultaPruebaEntrada.jsp" class="btn btn-primary"> Volver</a>

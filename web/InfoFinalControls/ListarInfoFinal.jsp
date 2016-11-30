@@ -7,15 +7,17 @@
     String nivelUsuario = String.valueOf(request.getSession().getAttribute("nivelUsuario"));   
     String busqueda = "Prueba Entrada";
     String idCurso = request.getParameter("id_Curso");
+    String idInfoFinal = request.getParameter("id_Final");
+    
+    String campo[]  = new String[11];
+    String campo2[] = new String[25];
 
-
-    ArrayList<ClsNegocioPruebaEntrada> dato = null;
-    ClsNegocioPruebaEntrada datos = new ClsNegocioPruebaEntrada();
-    dato = datos.hacerInformePruebaFaltante(codDocente,"Informe Final Curso");
-    Iterator iterator = dato.iterator();
-    String campo[] = new String[11];
-
-    if(idCurso!= null){
+    if (idCurso != null) {
+        ArrayList<ClsNegocioPruebaEntrada> dato = null;
+        ClsNegocioPruebaEntrada datos = new ClsNegocioPruebaEntrada();
+        dato = datos.hacerInformePruebaFaltante(codDocente,"Informe Final Curso");
+        Iterator iterator = dato.iterator();
+            
         while (iterator.hasNext()) {
             ClsEntidadPruebaCursosFaltantes objenti = new ClsEntidadPruebaCursosFaltantes();
 
@@ -36,8 +38,20 @@
                 break;
             }
         }
+        
     }
-
-    request.setAttribute("campo", campo);
-    request.getRequestDispatcher("../informeFinal.jsp").forward(request, response);
+    else if(idInfoFinal != null){
+        ClsNegocioPruebaEntrada negNegocioPruebaEntrada = new ClsNegocioPruebaEntrada();
+        ArrayList<String> pruebaEntrada = negNegocioPruebaEntrada.seleccionarPruebaEntrada(idInfoFinal);
+        campo2 = pruebaEntrada.toArray(new String[pruebaEntrada.size()]);
+    }
+    
+    if (idCurso != null) {
+        request.setAttribute("campo", campo);
+        request.getRequestDispatcher("../informeFinal.jsp"+idCurso).forward(request, response);
+    }
+    else if(idInfoFinal != null){
+        request.setAttribute("campo2", campo2);
+        request.getRequestDispatcher("../informeFinal.jsp"+idInfoFinal).forward(request, response);
+    }
 %>
