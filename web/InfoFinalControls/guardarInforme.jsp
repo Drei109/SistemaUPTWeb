@@ -179,6 +179,5 @@
     } catch (Exception e) {
     }
     /* fin de guardar datos observaciones */
-
+    response.sendRedirect("../reportesFaltantes.jsp");
 %>
-<%=total %>

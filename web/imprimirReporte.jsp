@@ -298,7 +298,7 @@
                                                     }
                                                 }
                                                 
-                                                if (nivelUsuario.equals("Supervisor")) {
+                                                if (nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")) {
                                                     for (int i = 0; i < DatosPruebaEntradaAdministrador.size(); i+=8) {
                                                         %>
                                                             <tr>
