@@ -3,6 +3,7 @@
     Created on : 14-nov-2016, 20:52:58
     Author     : Drei
 --%>
+<%@page import="Negocio.ClsNegocioInformeFinalCurso"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Entidad.ClsEntidadPruebaCursosFaltantes"%>
 <%@page import="java.util.Iterator"%>
@@ -35,6 +36,16 @@
                     <fieldset>
                         <div class="form-group">
                             <h2>Consulta Informe Prueba Entrada</h2>
+                        </div>
+                        <div class="form-group">
+                            <label for="select" class="control-label">Tipo Informe</label>
+                            <div class="">
+                              <select class="form-control" id="select" name="Informe">
+                                  <option value="Entrada">Prueba de Entrada</option>
+                                  <option value="Final">Informe Final del Curso</option>
+                                  <option value="Portafolio">Portafolio</option>
+                              </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="select" class="control-label">Criterio</label>
@@ -111,10 +122,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%
+                                        <% ClsNegocioInformeFinalCurso negoInfo = new ClsNegocioInformeFinalCurso();
                                             if (request.getParameter("Buscar")!=null) {
                                                 if (nivelUsuario.equals("Usuario")) {
-                                                    rs  =negPruebaEntrada.ConsultaAvanzaPruebaEntradaUsuario(criterio, busqueda,codDocente);
+                                                    String tipoInfo = request.getParameter("Informe");
+                                                    if (tipoInfo.equals("Final")) {
+                                                        
+                                                        rs = negoInfo.ConsultaAvanzaInfoFinalUsuario(criterio, busqueda, codDocente);
+                                                    }
+                                                    else if(tipoInfo.equals("Entrada")){
+                                                        rs  =negPruebaEntrada.ConsultaAvanzaPruebaEntradaUsuario(criterio, busqueda,codDocente);
+                                                    }
 
                                                     boolean encuentra = false;
                                                     
@@ -126,7 +144,12 @@
                                                             <td> <%= rs.getString(3)%> </td>
                                                             <td> <%= rs.getString(4)%> </td>
                                                             <td> <%= rs.getString(5)%> </td>
-                                                            <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe</a></td>
+                                                            <%if(tipoInfo.equals("Entrada")){%>
+                                                                <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
+                                                            <% } 
+                                                            else if(tipoInfo.equals("Final")) {%>
+                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
+                                                            <% } %>
                                                         </tr>
                                                         <%
                                                         
@@ -136,12 +159,28 @@
                                                     if (encuentra == false) {
                                                         mensaje = "No se encuentra.";
                                                     }
+                                                    
                                                     rs.close();
-                                                    negPruebaEntrada.conexion.close();
+                                                    if (tipoInfo.equals("Entrada")) {
+                                                        negPruebaEntrada.conexion.close();
+                                                            
+                                                    }
+                                                    else if(tipoInfo.equals("Final")){
+                                                        negoInfo.conexion.close();
+                                                    }
                                                     
                                                 }
                                                 else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
-                                                    rs  =negPruebaEntrada.ConsultaAvanzaPruebaEntrada(criterio, busqueda);
+                                                    
+                                                    String tipoInfo = request.getParameter("Informe");
+                                                    if (tipoInfo.equals("Final")) {
+                                                        rs = negoInfo.ConsultaAvanzaInformeFinal(criterio, busqueda);
+                                                    }
+                                                    else if(tipoInfo.equals("Entrada")){
+                                                        rs  =negPruebaEntrada.ConsultaAvanzaPruebaEntrada(criterio, busqueda);
+                                                    }
+
+                                                    
 
                                                     boolean encuentra = false;
                                                     
@@ -156,7 +195,12 @@
                                                             <td> <%= rs.getString(6)%> </td>
                                                             <td> <%= rs.getString(7)%> </td>
                                                             <td> <%= rs.getString(8)%> </td>
-                                                            <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe</a></td>
+                                                            <%if(tipoInfo.equals("Entrada")){%>
+                                                                <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
+                                                            <% } 
+                                                            else if(tipoInfo.equals("Final")) {%>
+                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
+                                                            <% } %>
                                                         </tr>
                                                         <%
                                                         encuentra = true;
