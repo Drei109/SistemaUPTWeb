@@ -28,7 +28,7 @@
     String nivelUsuario = String.valueOf(session.getAttribute("nivelUsuario"));   
     String busqueda = "Prueba Entrada";
     String idCurso = request.getParameter("id_Curso");
-    String idInfoFinal = request.getParameter("id_InfoFinal");
+    String idInfoFinal = request.getParameter("id_PruebaEntrada");
     
     String datos[] = (String[]) request.getAttribute("campo");
     
@@ -67,6 +67,8 @@
                                         <% if(request.getParameter("id_Curso") != null){
                                         %>
                                             <input  type="hidden" name="idCurso" value="<%=idCurso%>"
+                                        <% }else if(request.getParameter("id_PruebaEntrada") != null){ %>
+                                            <input  type="hidden" name="id_PruebaEntrada" value="<%=idInfoFinal%>"
                                         <% } %>
                                     </div>
 
