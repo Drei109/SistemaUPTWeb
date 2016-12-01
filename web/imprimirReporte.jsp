@@ -311,7 +311,18 @@
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+6)%></td>
                                                                 <td><%=DatosPruebaEntradaAdministrador.get(i+7)%></td>
                                                                 <td>
-                                                                    <a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                     <%
+                                                                        if(tipoInforme.equals("Entrada")){
+                                                                    %>
+                                                                            <a href="ReporteInformePruebaEntrada.jsp?id_PruebaEntrada=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                    <%
+                                                                        }
+                                                                        else if(tipoInforme.equals("Final")){
+                                                                    %>
+                                                                            <a href="ReporteInformeFinal.jsp?id_InformeFinal=<%=DatosPruebaEntradaAdministrador.get(i)%>" class="btn btn-info btn-xs btn-controles">Imprimir informe</a>
+                                                                    <%
+                                                                        }
+                                                                    %>
                                                                 </td>
                                                             </tr>
                                                         <%

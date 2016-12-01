@@ -147,7 +147,7 @@ html, body {
 
 .table-prueba-entrada td, th {
     text-align: center;
-    border: solid #202020 2px !important;
+    border: solid #202020 1px !important;
     margin: 0 !important; 
     padding: 0 !important;
 }

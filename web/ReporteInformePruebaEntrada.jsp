@@ -36,7 +36,14 @@
             </div>
         </div>
         <%
-                if(request.getParameter("pdf") != null){
+                String tipo = "pdf";
+                if (request.getParameter("html") != null) {
+                    tipo = "html";
+                } else if (request.getParameter("xls") != null) {
+                    tipo = "xls";
+                }
+                
+                if(tipo.equals("pdf")){
                     %>
                     <div class="container full-height" id="documento">
                         <div class="row form-reporte shadow full-height">
@@ -45,7 +52,7 @@
                     </div>
                     <%
                 }
-                else if(request.getParameter("html") != null){
+                else if(tipo.equals("html")){
                     %>
                     <div class="container full-height" id="documento">
                         <div class="row form-reporte shadow full-height">
@@ -56,7 +63,7 @@
                     </div>
                     <%
                 }
-                else if(request.getParameter("xls") != null){
+                else if(tipo.equals("xls")){
                     %>
                     <div class="container">
                         <embed class="reporte" src="RptInformePruebaEntrada.jsp?doctype=xls&id_PruebaEntrada=<%=id_PruebaEntrada%>" width="100%" height="100%" type='text/html'>

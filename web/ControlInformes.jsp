@@ -25,8 +25,12 @@
     String busqueda = request.getParameter("busqueda");
     
     String mensaje = "";
+    
+    ArrayList<ClsNegocioPruebaEntrada> dato = null;
 %>
 <head>
+    
+    
     <title>Control de Informes</title>
 </head>
 <body class="background-gray">
@@ -41,143 +45,94 @@
                             <label for="select" class="control-label">Tipo Informe</label>
                             <div class="">
                               <select class="form-control" id="select" name="Informe">
-                                  <option value="Entrada">Prueba de Entrada</option>
-                                  <option value="Final">Informe Final del Curso</option>
+                                  <option value="Prueba Entrada">Prueba de Entrada</option>
+                                  <option value="Informe Final Curso">Informe Final del Curso</option>
                                   <option value="Portafolio">Portafolio</option>
                               </select>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <input class="btn btn-success" type="submit" name="Buscar" value="Buscar">
+                            <input class="btn btn-info" type="submit" name="Buscar" value="Buscar">
                         </div>
                               
                         <div class="form-group">
                             <div class="table-responsive">
-                                <table class="table table-striped table-prueba-entrada" border="1">
+                                <table class="table table-striped table-prueba-entrada" border="1" id="tabla">
                                     <thead>
-                                        <tr>
-                                            <%
-                                                if (nivelUsuario.equals("Usuario")) {
-                                                    %>
-                                                    <th>ID</th>
-                                                    <th>Cod Curso</th>
-                                                    <th>Curso</th>
-                                                    <th>Fecha</th>
-                                                    <th>Estado</th>
-                                                    <th>Control</th>
-                                                    <% 
-                                                }
-                                                else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
-                                                    %>
-                                                    <th>ID</th>
-                                                    <th>Cod Doc</th>
-                                                    <th>Nombre Docente</th>
-                                                    <th>Semestre</th>
-                                                    <th>Cod Curso</th>
-                                                    <th>Curso</th>
-                                                    <th>Fecha</th>
-                                                    <th>Estado</th>
-                                                    <th>Control</th>
-                                                    <%
-                                                }
-                                            %>
+                                        <tr>                                               
+                                            <th>ID</th>
+                                            <th>Cod Doc</th>
+                                            <th>Nombre Docente</th>
+                                            <th>Cod Curso</th>
+                                            <th>Curso</th>
+                                            <th>Fecha</th>
+                                            <th>Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% ClsNegocioInformeFinalCurso negoInfo = new ClsNegocioInformeFinalCurso();
+                                        <% 
+                                            String tipoInforme = request.getParameter("Informe");
                                             if (request.getParameter("Buscar")!=null) {
-                                                if (nivelUsuario.equals("Usuario")) {
-                                                    String tipoInfo = request.getParameter("Informe");
-                                                    if (tipoInfo.equals("Final")) {
-                                                        
-                                                        rs = negoInfo.ConsultaAvanzaInfoFinalUsuario(criterio, busqueda, codDocente);
-                                                    }
-                                                    else if(tipoInfo.equals("Entrada")){
-                                                        rs  =negPruebaEntrada.ConsultaAvanzaPruebaEntradaUsuario(criterio, busqueda,codDocente);
-                                                    }
+                                                tipoInforme = request.getParameter("Informe");
+                                                ClsNegocioPruebaEntrada datos = new ClsNegocioPruebaEntrada();
 
-                                                    boolean encuentra = false;
-                                                    
-                                                    while (rs.next()) {
-                                                        %>
-                                                        <tr>
-                                                            <td> <%= rs.getString(1)%> </td>
-                                                            <td> <%= rs.getString(2)%> </td>
-                                                            <td> <%= rs.getString(3)%> </td>
-                                                            <td> <%= rs.getString(4)%> </td>
-                                                            <td> <%= rs.getString(5)%> </td>
-                                                            <%if(tipoInfo.equals("Entrada")){%>
-                                                                <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
-                                                            <% } 
-                                                            else if(tipoInfo.equals("Final")) {%>
-                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
-                                                            <% } %>
-                                                        </tr>
-                                                        <%
-                                                        
-                                                        encuentra = true;
-                                                    }
+                                                dato = datos.verInformesTotales(tipoInforme);
 
-                                                    if (encuentra == false) {
-                                                        mensaje = "No se encuentra.";
-                                                    }
-                                                    
-                                                    rs.close();
-                                                    if (tipoInfo.equals("Entrada")) {
-                                                        negPruebaEntrada.conexion.close();
-                                                            
-                                                    }
-                                                    else if(tipoInfo.equals("Final")){
-                                                        negoInfo.conexion.close();
-                                                    }
-                                                    
+                                                Iterator iterator = dato.iterator();
+
+                                                while (iterator.hasNext()) {
+                                                    ClsEntidadPruebaCursosFaltantes objenti = new ClsEntidadPruebaCursosFaltantes();
+
+                                                    objenti = (ClsEntidadPruebaCursosFaltantes) iterator.next();
+                                                    %>
+                                                    <tr>
+                                                            <td> <%= objenti.getCargaAcademica()%> </td>
+                                                            <td> <%= objenti.getCodigoDocente()%> </td>
+                                                            <td> <%= objenti.getNombreDocente()%> </td>
+                                                            <td> <%= objenti.getIdCurso()%> </td>
+                                                            <td> <%= objenti.getNombreCurso()%> </td>
+                                                            <%
+                                                                if(objenti.getFechaPrueba()!=null){
+                                                                %>
+                                                                    <td> <%= objenti.getFechaPrueba()%> </td>
+                                                                <%
+                                                                }
+                                                                else{
+                                                                %>
+                                                                    <td>-</td>
+                                                                <%
+                                                                }
+                                                            %>
+                                                            <%
+                                                                if(objenti.getEstadoPrueba().equals("SIN COMPLETAR")){
+                                                                    %>
+                                                                    <td class="btn-danger"> <%= objenti.getEstadoPrueba()%> </td>
+                                                                    <%
+                                                                }
+                                                                else if(objenti.getEstadoPrueba().equals("FALTA APROBAR")){
+                                                                    %>
+                                                                    <td class="btn-warning"> <%= objenti.getEstadoPrueba()%> </td>
+                                                                    <%
+                                                                }
+
+                                                                else{
+                                                                    %>
+                                                                    <td class="btn-success"> <%= objenti.getEstadoPrueba()%> </td>
+                                                                    <%
+                                                                }
+                                                            %>                                                                                                                        
+                                                    <%
+                                                   
                                                 }
-                                                else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
-                                                    
-                                                    String tipoInfo = request.getParameter("Informe");
-                                                    if (tipoInfo.equals("Final")) {
-                                                        rs = negoInfo.ConsultaAvanzaInformeFinal(criterio, busqueda);
-                                                    }
-                                                    else if(tipoInfo.equals("Entrada")){
-                                                        rs  =negPruebaEntrada.ConsultaAvanzaPruebaEntrada(criterio, busqueda);
-                                                    }
-
-                                                    
-
-                                                    boolean encuentra = false;
-                                                    
-                                                    while (rs.next()) {
-                                                        %>
-                                                        <tr>
-                                                            <td> <%= rs.getString(1)%> </td>
-                                                            <td> <%= rs.getString(2)%> </td>
-                                                            <td> <%= rs.getString(3)%> </td>
-                                                            <td> <%= rs.getString(4)%> </td>
-                                                            <td> <%= rs.getString(5)%> </td>
-                                                            <td> <%= rs.getString(6)%> </td>
-                                                            <td> <%= rs.getString(7)%> </td>
-                                                            <td> <%= rs.getString(8)%> </td>
-                                                            <%if(tipoInfo.equals("Entrada")){%>
-                                                                <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
-                                                            <% } 
-                                                            else if(tipoInfo.equals("Final")) {%>
-                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
-                                                            <% } %>
-                                                        </tr>
-                                                        <%
-                                                        encuentra = true;
-                                                    }
-
-                                                    if (encuentra == false) {
-                                                        mensaje = "No se encuentra.";
-                                                    }
-                                                }
-                                            }
+                                                datos.conexion.close();
+                                            }                                            
                                         %>
                                     </tbody>                                    
                                 </table>
                             </div>
+                            <a href="ReporteControlInformes.jsp?tipoInforme=<%=tipoInforme%>&tipoGrafico=Pie" class="btn btn-info" target="Pie">Ver Informe (Pie)</a>
+                            <a href="ReporteControlInformes.jsp?tipoInforme=<%=tipoInforme%>&tipoGrafico=Barras" class="btn btn-info" target="Barras">Ver Informe (Barras)</a>
                         </div>
                         <div class="form-group">
                             <p><%=mensaje%></p>
@@ -185,7 +140,14 @@
                     </fieldset>
                 </form>
             </div>
-        </div>        
+        </div>  
+                        
+        <script>
+            $(document).ready(function() {
+                $('#tabla').DataTable();
+            } );
+        </script>
+        
     </body>
 </html>
 

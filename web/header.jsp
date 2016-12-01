@@ -12,10 +12,13 @@
         
 <!--        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="js/dataTables.bootstrap.min.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="navbar navbar-default navbar-fixed-top shadow">
