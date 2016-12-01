@@ -1,3 +1,4 @@
+<%@page import="Negocio.ClsNegocioInformeFinalCurso"%>
 <%@page import="Entidad.ClsEntidadPruebaCursosFaltantes"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="Negocio.ClsNegocioPruebaEntrada"%>
@@ -41,17 +42,17 @@
         
     }
     else if(idInfoFinal != null){
-        ClsNegocioPruebaEntrada negNegocioPruebaEntrada = new ClsNegocioPruebaEntrada();
-        ArrayList<String> pruebaEntrada = negNegocioPruebaEntrada.seleccionarPruebaEntrada(idInfoFinal);
+        ClsNegocioInformeFinalCurso negNegocioPruebaEntrada = new ClsNegocioInformeFinalCurso();
+        ArrayList<String> pruebaEntrada = negNegocioPruebaEntrada.seleccionarInforCurso(idInfoFinal);
         campo2 = pruebaEntrada.toArray(new String[pruebaEntrada.size()]);
     }
     
     if (idCurso != null) {
         request.setAttribute("campo", campo);
-        request.getRequestDispatcher("../informeFinal.jsp"+idCurso).forward(request, response);
+        request.getRequestDispatcher("../informeFinal.jsp?id_Curso="+idCurso).forward(request, response);
     }
     else if(idInfoFinal != null){
         request.setAttribute("campo2", campo2);
-        request.getRequestDispatcher("../informeFinal.jsp"+idInfoFinal).forward(request, response);
+        request.getRequestDispatcher("../informeFinal.jsp?id_PruebaEntrada="+idInfoFinal).forward(request, response);
     }
 %>
