@@ -13,7 +13,7 @@
 
     String codDocente = String.valueOf(request.getSession().getAttribute("codDocente"));
     String idCurso = request.getParameter("idCurso");
-    String id_PruebaEntrada = request.getParameter("id_PruebaEntrada");
+    String id_PruebaEntrada = request.getParameter("id_Final");
     String estado = "";
     
     if (request.getParameter("Guardar") != null) {
