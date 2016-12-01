@@ -55,7 +55,7 @@
                                         if (session.getAttribute("nivelUsuario").equals("Administrador") || session.getAttribute("nivelUsuario").equals("Supervisor"))
                                         {
                                 %>   
-                                        <li><a href="ControlInformes.jsp">Control de Informes</a></li>
+                                        <li><a href="ControlInformes.jsp?Informe=Prueba+Entrada&Buscar=Buscar&tabla_length=20">Control de Informes</a></li>
                                 <%
                                         }
                                     }

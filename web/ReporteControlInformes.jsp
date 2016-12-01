@@ -23,6 +23,7 @@
     ClsNegocioPruebaEntrada negocio = new ClsNegocioPruebaEntrada();
 
     String dataPie = "";
+    String dataBarras = "";
 %>
 <head>
     <title>Imprimir Reportes</title>
@@ -54,11 +55,21 @@
                                         }
                                         
                                         %>
-                                        <h1>PE</h1>
+                                        
                                         <div id="graficoPie">                                            
                                         </div>
                                         <%
                                     } else {
+
+                                        while (rs.next()){
+                                            String name = rs.getString(1);
+                                            String valor = rs.getString(2);
+                                            dataBarras += "{name: '"+name+"', y: " + valor + ",drilldown: '" + name + "'},";
+                                        }
+                                        %>                                        
+                                        <div id="graficoBarras">                                            
+                                        </div>
+                                        <%
                                     }
                                 } 
                                 else if (tipoInforme.equals("Informe Final Curso")){
@@ -73,11 +84,20 @@
                                         }
                                         
                                         %>
-                                        <h1>IF</h1>
+                                        
                                         <div id="graficoPie">                                            
                                         </div>
                                         <%
                                     } else {
+                                            while (rs.next()){
+                                            String name = rs.getString(1);
+                                            String valor = rs.getString(2);
+                                            dataBarras += "{name: '"+name+"', y: " + valor + ",drilldown: '" + name + "'},";
+                                        }
+                                        %>                                        
+                                        <div id="graficoBarras">                                            
+                                        </div>
+                                        <%
                                     }
                                     
                                 }
@@ -85,9 +105,7 @@
                                     
                                 }
                             %>
-                            <a href="#documento"><input type="submit" class="btn btn-default" name="pdf" value="Ver en PDF"></a>
-                            <input type="submit" class="btn btn-default" name="html" value="Ver en HTML">
-                            <input type="submit" class="btn btn-default" name="xls" value="Descargar en Excel">
+                            
                         </div>
                     </fieldset>
                 </form>
@@ -127,6 +145,52 @@
                     data: [<%=dataPie%>]
                 }]
             });
+        });
+    });
+    $(function () {
+    // Create the chart
+        Highcharts.chart('graficoBarras', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Control Informes - Prueba Final'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total percent market share'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.1f}%'
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [<%=dataBarras%>]
+            }]        
         });
     });
     </script>

@@ -155,8 +155,9 @@
                                     <div class="col-lg-3">
                                         <% if(datos != null){ %>
                                         <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos[9]%>'>
+                                        <%}else if(datos2 != null){%>
+                                        <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos2[9]%>'>
                                         <%}%>
-                                        
                                     </div>                                
                                 </div>
 
@@ -177,16 +178,26 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Porcentaje de cumplimiento del sílabo</label>
                                     <div class="col-lg-1">
+                                         <% if(datos2 != null){ %>
+                                        <input type="text" name="porSilabo" class="form-control input-sm" id="" value='<%=datos2[14]%>'>
+                                        <% } else{%>
                                         <input type="text" name="porSilabo" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                     </div>  
                                     <div class="col-lg-1">
+                                        
                                         <input type="text" name="porcentajeSilabo" class="form-control input-sm" id="" value=''>
+                                        
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Prácticas calificadas realizadas</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="caliRealizadas" class="form-control input-sm" id="" value='<%=datos2[15]%>'>
+                                        <% } else{%>
                                         <input type="text" name="caliRealizadas" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                    </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajePCalificadas" class="form-control input-sm" id="" value=''>
@@ -195,7 +206,11 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Experiencias de laboratorio realizadas</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="laboRealizada" class="form-control input-sm" id="" value='<%=datos2[16]%>'>
+                                        <% } else{%>
                                         <input type="text" name="laboRealizada" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeLabRealizadas" class="form-control input-sm" id="" value=''>
@@ -204,7 +219,11 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Proyectos y/o trabajos de investigación realizados</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="proyeRealizado" class="form-control input-sm" id="" value='<%=datos2[17]%>'>
+                                        <% } else{%>
                                         <input type="text" name="proyeRealizado" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajePRealiados" class="form-control input-sm" id="" value=''>
@@ -243,11 +262,11 @@
                                     <div class="col-lg-1">
                                         <% if(datos != null){ %>
                                         <input type="text" name="estAbando" class="form-control input-sm" id="" value='<%=datos[6]%>'>
-                                        <%}%> 
-                                        <%if(datos2 != null){ %>
+                                        <% } else if(datos2 != null){ %>
                                         <input type="text" name="estAbando" class="form-control input-sm" id="" value='<%=datos2[6]%>'>
+                                        <% } else { %>
+                                        <input type="text" name="estAbando" class="form-control input-sm" id="" value=''>
                                         <% } %>
-                                        
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeAbandono" class="form-control input-sm" id="" value=''>
@@ -256,7 +275,11 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes que asisten</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="estAsiste" class="form-control input-sm" id="" value='<%=datos2[18]%>'>
+                                        <% } else { %>
                                         <input type="text" name="estAsiste" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeAsisten" class="form-control input-sm" id="" value=''>
@@ -265,7 +288,12 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes aprobados</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="estAprobado" class="form-control input-sm" id="" value='<%=datos2[19]%>'>
+                                        <% } else { %>
                                         <input type="text" name="estAprobado" class="form-control input-sm" id="" value=''>
+                                        <% } %>
+                                        
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeAprobados" class="form-control input-sm" id="" value=''>
@@ -274,7 +302,11 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Estudiantes desaprobados</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="estDesapro" class="form-control input-sm" id="" value='<%=datos2[20]%>'>
+                                        <% } else { %>
                                         <input type="text" name="estDesapro" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                     </div>  
                                     <div class="col-lg-1">
                                         <input type="text" name="porcentajeDesaprobados" class="form-control input-sm" id="" value=''>
@@ -283,19 +315,32 @@
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Nota final más alta</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="notaMasAlta" class="form-control input-sm" id="" value='<%=datos2[21]%>'>
+                                        <% } else { %>
                                         <input type="text" name="notaMasAlta" class="form-control input-sm" id="" value=''>
+                                        <% } %>
+                                        
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Nota final promedio</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="notaProm" class="form-control input-sm" id="" value='<%=datos2[22]%>'>
+                                        <% } else { %>
                                         <input type="text" name="notaProm" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                     </div>  
                                 </div>
                                 <div class="row">                                
                                     <label class="col-lg-5 ">Nota final más baja</label>
                                     <div class="col-lg-1">
+                                        <% if(datos2 != null){ %>
+                                        <input type="text" name="notaMasBaja" class="form-control input-sm" id="" value='<%=datos2[23]%>'>
+                                        <% } else { %>
                                         <input type="text" name="notaMasBaja" class="form-control input-sm" id="" value=''>
+                                        <% } %>
                                     </div>   
                                 </div>                            
                             </div>    
