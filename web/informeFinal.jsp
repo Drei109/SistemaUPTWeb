@@ -3,6 +3,7 @@
     Created on : 14-nov-2016, 20:52:58
     Author     : Drei
 --%>
+<%@page import="Entidad.ClsEntidadCacidadInformeFinalCurso"%>
 <%@page import="Negocio.ClsNegocioUsuario"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Negocio.ClsNegocioDetallePruebaEntrada"%>
@@ -32,7 +33,8 @@
     
     String datos[] = (String[]) request.getAttribute("campo");
     String datos2[] = (String[]) request.getAttribute("campo2");
-    
+    String datos3[] = (String[]) request.getAttribute("campo3");
+    String datos4[] = (String[]) request.getAttribute("campo4");
     
 %>
 <head>
@@ -68,15 +70,15 @@
                                     <label class="col-lg-2 ">Código :</label>
                                     <div class="col-lg-3">
                                         <% if(datos != null){%>
-                                        <input type="text" class="form-control input-sm"  name="" id="" value='<%=datos[0]%>'>
+                                        <input type="text" class="form-control input-sm"  name="idCurso" id="" value='<%=datos[0]%>'>
                                         <%} else if(datos2 != null){%>
-                                        <input type="text" class="form-control input-sm"  name="" id="" value='<%=datos2[0]%>'>
+                                        <input type="text" class="form-control input-sm"  name="idCurso" id="" value='<%=datos2[0]%>'>
                                         <%} %>
                                         
                                         <% if(datos != null){%>
                                             <input  type="hidden" name="idCurso" value="<%=datos[0]%>"
                                         <% }else if(datos2 != null){ %>
-                                            <input  type="hidden" name="id_PruebaEntrada" value="<%=datos2[11]%>"
+                                            <input  type="hidden" name="id_Final" value="<%=datos2[11]%>"
                                         <% } %>
                                     </div>
 
@@ -243,7 +245,7 @@
                                         <input type="text" name="estAbando" class="form-control input-sm" id="" value='<%=datos[6]%>'>
                                         <%}%> 
                                         <%if(datos2 != null){ %>
-                                        <input type="text" name="estReti" class="form-control input-sm" id="" value='<%=datos2[6]%>'>
+                                        <input type="text" name="estAbando" class="form-control input-sm" id="" value='<%=datos2[6]%>'>
                                         <% } %>
                                         
                                     </div>  
@@ -346,6 +348,22 @@
                                             <th class="col-md-1">M</th>
                                         </thead>
                                         <tbody>
+                                            <% int cant = 0;
+                                                if(datos3 !=  null){
+                                                    for (int i = 0; i < datos3.length; i+=5) { %> 
+                                                    
+                                            <tr id='addr<%=cant %>'>
+                                                <td><input name=""                                  value="<%=(cant+1)%>" type="text" class="form-control"/></td>
+                                                <td><input name="detalledescripcionCapa<%=cant%>"   value="<%=datos3[i+1]%>" type="text" class="form-control"/></td>
+                                                <td><input name="detallenadaCapa<%=cant%>"          value="<% String mar = datos3[i+2].equals("1") ? "x":""; %><%=mar%>" type="text" class="form-control"/></td>
+                                                <td><input name="detallepocoCapa<%=cant%>"          value="<% String mar2 = datos3[i+2].equals("11") ? "x":""; %><%=mar2%>" type="text" class="form-control"/></td>
+                                                <td><input name="detalleaceptableCapa<%=cant%>"     value="<% String mar3 = datos3[i+2].equals("21") ? "x":""; %><%=mar3%>" type="text" class="form-control"/></td>
+                                                <td><input name="detallebienCapa<%=cant%>"          value="<% String mar4 = datos3[i+2].equals("31") ? "x":""; %><%=mar4%>" type="text" class="form-control"/></td>
+                                                <td><input name="detallemuyBienCapa<%=cant%>"       value="<% String mar5 = datos3[i+2].equals("41") ? "x":""; %><%=mar5%>" type="text" class="form-control"/></td>
+                                            </tr>   
+                                                    <% cant++; }%>
+                                                <tr id='addr<%=cant%>'></tr>
+                                                <%} else{ %>
                                             <tr id='addr0'>
                                                 <td><input name="" value="1" type="text" class="form-control"/></td>
                                                 <td><input name="detalledescripcionCapa" value="" type="text" class="form-control"/></td>
@@ -355,7 +373,9 @@
                                                 <td><input name="detallebienCapa" value="" type="text" class="form-control"/></td>
                                                 <td><input name="detallemuyBienCapa" value="" type="text" class="form-control"/></td>
                                             </tr>
-                                            <tr id='addr1'></tr>
+                                                <tr id='addr1'></tr>
+                                                <%}%>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -366,11 +386,22 @@
 
                             <div class="form-group" id="medidas_logic">
                                 <label>Cuál cree que ha sido el motivo por el cual los estudiantes no alcanzaron el logro de capacidades</label>
-                                <div id="mc0">
+                                <% int cnt = 0;
+                                if(datos3 != null){
+                                    for (int i = 0; i < datos3.length; i+=5) {%>
+                                <div id='mc<%=cnt%>'>
+                                    <p>Para Nº <%=cnt+1%><p>
+                                    <textarea name='medCorrectiva<%=cnt%>' class="form-control"><%=datos3[i+4] %></textarea>
+                                </div>
+                                <% cnt++;}%>
+                                <div id='mc<%=cnt%>'></div>
+                                <%}else{%>
+                                    <div id="mc0">
                                     <p>Para Nº 1<p>
                                     <textarea name="medCorrectiva" class="form-control"></textarea>
-                                </div>   
-                                <div id="mc1"></div>
+                                    </div>
+                                    <div id="mc1"></div>
+                                <%}%>
                             </div>   
                             
                             <div class="form-group">
@@ -379,67 +410,84 @@
                                 </div>
                                 <div class="observaciones">
                                     <label>1.De los estudiantes. Nivel académico, conocimientos previos, interés en el curso, estilos de aprendizaje.</label>
-                                    <textarea name="obsDelEstudiante" class="form-control" rows="3"></textarea>
+                                    <% String o1 = datos4 != null ? datos4[0]: ""; %>
+                                    <textarea name="obsDelEstudiante" class="form-control" rows="3"><%=o1%></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>2.Asistencia y puntualidad de los estudiantes.</label>
-                                    <textarea name="obsAsistencia" class="form-control" rows="3"></textarea>
+                                    <% String o2 = datos4 != null ? datos4[1]: ""; %>
+                                    <textarea name="obsAsistencia" class="form-control" rows="3"><%=o2%></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>Del sílabo. ¿Qué temas del sílabo no se han completado? ¿Considera todos los temas adecuados? ¿Qué temas requieren más tiempo de dedicación?</label>
-                                    <textarea name="obsDelSilabo" class="form-control" rows="3"></textarea>
+                                    <% String o3 = datos4 != null ? datos4[2]: ""; %>
+                                    <textarea name="obsDelSilabo" class="form-control" rows="3"><%=o3%></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>4. Uso del Aula Virtual. Información colocada, uso de foros, chat y cantidad de visitas estudiantiles.</label>
                                     <div class="row">
+                                        <% String com = datos4 != null ? datos4[3]: ""; 
+                                           String chko[] = com.split(","); 
+                                        %>
                                         <label class="col-lg-2 ">Material del curso :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulamaterialcurso' value='material'>
+                                            <% String chk1 = chko != null && chko[0].equals("Material del Curso") ? "checked":""; %>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulamaterialcurso' value='material' <%=chk1%> >
                                         </div>
                                         <label class="col-lg-2 ">Cuestionarios :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulacuestionarios' value='cuestionarios'>
+                                            <% String chk2 = chko != null && chko[2].equals("Cuestionarios") ? "checked":""; %>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulacuestionarios' value='cuestionarios' <%=chk2%> >
                                         </div>
                                         <label class="col-lg-2 ">Tareas encargadas:</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulatareasencargadas' value='tareas'>
+                                            <% String chk3 = chko != null && chko[4].equals("Tareas Encargadas") ? "checked":""; %>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulatareasencargadas' value='tareas' <%=chk3%> >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <label class="col-lg-2 ">Foros :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulaforos' value='foros'>
+                                            <% String chk4 = chko != null && chko[1].equals("Foros") ? "checked":""; %>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaforos' value='foros' <%=chk4%> >
                                         </div>
                                         <label class="col-lg-2 ">Examenes virtuales :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulaexamenesvirtuales' value='examenes'>
+                                            <% String chk5 = chko != null && chko[3].equals("Examenes Virtuales") ? "checked":""; %>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaexamenesvirtuales' value='examenes' <%=chk5%> >
                                         </div>
                                         <label class="col-lg-2 ">Slideshow :</label>
                                         <div class="col-lg-1">
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulaslideshow' value='ppt'>
+                                            <% String chk6 = chko != null && chko[5].equals("Presentaciones") ? "checked":""; %>
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaslideshow' value='ppt' <%=chk6%> >
                                         </div>
                                     </div>
                                 </div>
                                 <div class="observaciones">
                                     <label>5. Disponibilidad de recursos en aulas y laboratorios</label>
-                                    <textarea name="obsDisponibilidad" class="form-control" rows="3"></textarea>
+                                    <% String o5 = datos4 != null ? datos4[4]: ""; %>
+                                    <textarea name="obsDisponibilidad" class="form-control" rows="3"><%=o5%></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>6. Sílabo por competencias. ¿Qué actividades realizó usted para la evaluación del cumplimiento de las competencias de su curso,
                                     por los estudiatnes? ¿Podría presentar una propuesta de evaluación de las competencias de su curso?</label>
-                                    <textarea name="obsCompetencias" class="form-control" rows="3"></textarea>
+                                    <% String o6 = datos4 != null ? datos4[5]: ""; %>
+                                    <textarea name="obsCompetencias" class="form-control" rows="3"><%=o6%></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>7.Mejora contínua. ¿Qué actividades de mejora contínua ha realizado en el curso de este ciclo y cuáles propone para el siguiente, para mejorar el rendimiento académico del estudiante.</label>
-                                    <textarea name="obsMejora" class="form-control" rows="3"></textarea>
+                                    <% String o7 = datos4 != null ? datos4[6]: ""; %>
+                                    <textarea name="obsMejora" class="form-control" rows="3"><%=o7%></textarea>
                                 </div>
                                 <div class="observaciones">
                                     <label>8. Actualización docente. Ha seguido usted algún curso de actualización profesional o docente en los últimos dos años. Indique tema del curso y duración</label>
-                                    <textarea name="obsDocente" class="form-control" rows="3"></textarea>
+                                    <% String o8 = datos4 != null ? datos4[7]: ""; %>
+                                    <textarea name="obsDocente" class="form-control" rows="3"><%=o8%></textarea>
                                 </div>
                                 <div class="observaciones">
-                                    <label>9.Comentarios y Recomendaciones. Serán útiles para mejorar el Plan de Estudio y los servicios que brinadn la Escuela, la Facultad y la Universidad</label>
-                                   <textarea name="obsComentarios" class="form-control" rows="3"></textarea>
+                                   <label>9.Comentarios y Recomendaciones. Serán útiles para mejorar el Plan de Estudio y los servicios que brinadn la Escuela, la Facultad y la Universidad</label>
+                                   <% String o9 = datos4 != null ? datos4[8]: ""; %>
+                                   <textarea name="obsComentarios" class="form-control" rows="3"><%=o9%></textarea>
                                 </div>
                                 
                             </div>
@@ -471,7 +519,7 @@
             </div>
         </div>   
         <script>
-             var i=1;
+             var i=<%=cant%>;
              var calculadoPorcentajes = false;
             $("#add_row").click(function(){
                 
