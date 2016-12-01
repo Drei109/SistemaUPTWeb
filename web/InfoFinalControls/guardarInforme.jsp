@@ -23,6 +23,7 @@
         estado = "Enviado";
     }
     
+    if(request.getParameter("Guardar") != null || request.getParameter("Enviar") != null){
         //OBTENER EL ID DE LA CARGA ACEDEMICA
         ClsEntidadInformeFinalCurso entiInfoFinal = new ClsEntidadInformeFinalCurso();
         ClsNegocioInformeFinalCurso negoInfoFinal = new ClsNegocioInformeFinalCurso();
@@ -198,6 +199,28 @@
         } catch (Exception e) {
         }
         /* fin de guardar datos observaciones */
+    }
+    
+    if(request.getParameter("Aceptar") != null || request.getParameter("Rechazar") != null  ){
+        
+        /*OBTENER EL ID DEL INFORME FINAL DEL CURSO*/
+        ClsNegocioCapadidadInformeFinalCurso negocioCapacidadIdInfo = new ClsNegocioCapadidadInformeFinalCurso();
+        ArrayList<String> idinfo = negocioCapacidadIdInfo.obtenerInfoFinalDocente(codDocente, idCurso);
+        String id[] = idinfo.toArray(new String[idinfo.size()]);
+        /*FIN*/
+        
+        ClsNegocioInformeFinalCurso negoFinal = new ClsNegocioInformeFinalCurso();
+        
+        String estado2 = request.getParameter("Aceptar") != null ? "Aprobado":"Observado";
+        
+        negoFinal.ModificarEstadoInformeFinal(id_PruebaEntrada, estado2);
+        
+        if (estado2.equals("Aprobado")) {
+            response.sendRedirect("../imprimirReporte.jsp");
+        }
+        else{
+            response.sendRedirect("../consultaPruebaEntrada.jsp");
+        }
     }
 
     /* fin de guardar datos observaciones */    
