@@ -27,7 +27,7 @@
     String mensaje = "";
 %>
 <head>
-    <title>Consulta Informe Prueba Entrada</title>
+    <title>Control de Informes</title>
 </head>
 <body class="background-gray">
         <div class="container body-padding">
@@ -35,7 +35,7 @@
                 <form class="form-reporte form-consulta shadow">
                     <fieldset>
                         <div class="form-group">
-                            <h2>Consulta de Informes</h2>
+                            <h2>Control de Informes</h2>
                         </div>
                         <div class="form-group">
                             <label for="select" class="control-label">Tipo Informe</label>
@@ -47,44 +47,7 @@
                               </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="select" class="control-label">Criterio</label>
-                            <div class="">
-                              <select class="form-control" id="select" name="criterio">
-                                  <%
-                                    if (nivelUsuario.equals("Usuario")) {
-                                        %>
-                                        <option value="Todos">Todos</option>
-                                        <option value="Código Curso">Código Curso</option>
-                                        <option value="Nombre Curso">Nombre Curso</option>
-                                        <option value="Fecha">Fecha</option>
-                                        <option value="Estado">Estado</option>
-                                        <% 
-                                    }
-                                    else if(nivelUsuario.equals("Supervisor") || nivelUsuario.equals("Administrador")){
-                                        %>
-                                        <option value="Todos">Todos</option>
-                                        <option value="Código Docente">Código Docente</option>
-                                        <option value="Nombre Docente">Nombre Docente</option>
-                                        <option value="Semestre">Semestre</option>
-                                        <option value="Código Curso">Código Curso</option>
-                                        <option value="Nombre Curso">Nombre Curso</option>
-                                        <option value="Fecha">Fecha</option>
-                                        <option value="Estado">Estado</option>
-                                        <%
-                                    }
-                                  %>
-                              </select>
-                            </div>
-                        </div>
-                              
-                        <div class="form-group">
-                            <label for="busqueda" class="control-label">Búsqueda</label>
-                            <div class="">                              
-                                <input name="busqueda" type="text" class="form-control" id="busqueda" placeholder="Búsqueda">
-                            </div>
-                        </div>
-                              
+                        
                         <div class="form-group">
                             <input class="btn btn-success" type="submit" name="Buscar" value="Buscar">
                         </div>
@@ -148,7 +111,7 @@
                                                                 <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
                                                             <% } 
                                                             else if(tipoInfo.equals("Final")) {%>
-                                                                <td> <a href="InfoFinalControls/ListarInfoFinal.jsp?id_Final=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
+                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
                                                             <% } %>
                                                         </tr>
                                                         <%
@@ -199,7 +162,7 @@
                                                                 <td> <a href="pruebaEntrada.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe E</a></td>
                                                             <% } 
                                                             else if(tipoInfo.equals("Final")) {%>
-                                                                <td> <a href="InfoFinalControls/ListarInfoFinal.jsp?id_Final=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
+                                                                <td> <a href="informeFinal.jsp?id_PruebaEntrada=<%= rs.getString(1)%>" class="btn btn-success btn-xs btn-controles">Ver Informe F</a></td>
                                                             <% } %>
                                                         </tr>
                                                         <%
