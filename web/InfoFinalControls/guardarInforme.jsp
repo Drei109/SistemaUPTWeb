@@ -224,4 +224,5 @@
     }
 
     /* fin de guardar datos observaciones */    
+    response.sendRedirect("../consultaPruebaEntrada.jsp");
 %>

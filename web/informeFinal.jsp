@@ -154,9 +154,9 @@
                                     <label class="col-lg-2 ">Celular :</label>
                                     <div class="col-lg-3">
                                         <% if(datos != null){ %>
-                                        <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos[9]%>'>
+                                        <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos[10]%>'>
                                         <%}else if(datos2 != null){%>
-                                        <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos2[9]%>'>
+                                        <input type="number" min="0" class="form-control input-sm" id="" value='<%=datos2[11]%>'>
                                         <%}%>
                                     </div>                                
                                 </div>
@@ -471,40 +471,38 @@
                                 <div class="observaciones">
                                     <label>4. Uso del Aula Virtual. Información colocada, uso de foros, chat y cantidad de visitas estudiantiles.</label>
                                     <div class="row">
-                                        <% String com = datos4 != null ? datos4[3]: ""; 
-                                           String chko[] = com.split(","); 
-                                        %>
+                                       
                                         <label class="col-lg-2 ">Material del curso :</label>
                                         <div class="col-lg-1">
-                                            <% String chk1 = chko != null && chko[0].equals("Material del Curso") ? "checked":""; %>
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulamaterialcurso' value='material' <%=chk1%> >
+                                          
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulamaterialcurso' value='material' >
                                         </div>
                                         <label class="col-lg-2 ">Cuestionarios :</label>
                                         <div class="col-lg-1">
-                                            <% String chk2 = chko != null && chko[2].equals("Cuestionarios") ? "checked":""; %>
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulacuestionarios' value='cuestionarios' <%=chk2%> >
+                                          
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulacuestionarios' value='cuestionarios'  >
                                         </div>
                                         <label class="col-lg-2 ">Tareas encargadas:</label>
                                         <div class="col-lg-1">
-                                            <% String chk3 = chko != null && chko[4].equals("Tareas Encargadas") ? "checked":""; %>
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulatareasencargadas' value='tareas' <%=chk3%> >
+                                           
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulatareasencargadas' value='tareas'  >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <label class="col-lg-2 ">Foros :</label>
                                         <div class="col-lg-1">
-                                            <% String chk4 = chko != null && chko[1].equals("Foros") ? "checked":""; %>
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulaforos' value='foros' <%=chk4%> >
+                                          
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaforos' value='foros' >
                                         </div>
                                         <label class="col-lg-2 ">Examenes virtuales :</label>
                                         <div class="col-lg-1">
-                                            <% String chk5 = chko != null && chko[3].equals("Examenes Virtuales") ? "checked":""; %>
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulaexamenesvirtuales' value='examenes' <%=chk5%> >
+                                           
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaexamenesvirtuales' value='examenes'  >
                                         </div>
                                         <label class="col-lg-2 ">Slideshow :</label>
                                         <div class="col-lg-1">
-                                            <% String chk6 = chko != null && chko[5].equals("Presentaciones") ? "checked":""; %>
-                                            <input type="checkbox" min="0" class="" id="" name='usoAulaslideshow' value='ppt' <%=chk6%> >
+                                           
+                                            <input type="checkbox" min="0" class="" id="" name='usoAulaslideshow' value='ppt' >
                                         </div>
                                     </div>
                                 </div>
